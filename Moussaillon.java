@@ -1,4 +1,4 @@
 
-public class Moussaillon {
+public class Moussaillon extends Personnage {
 
 }

@@ -1,4 +1,4 @@
 
-public class Fantome {
+public class Fantome extends Personnage{
 
 }
