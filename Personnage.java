@@ -1,8 +1,9 @@
 
 public class Personnage {
 	
-	
+	protected Des de;
 	protected String path;
+	protected Case case_perso;
 	
 	
 	
@@ -12,5 +13,14 @@ public class Personnage {
 	}
 	
 	public void aToiDeJouer(){}
+	
+	public void setCasePerso(Case c)
+	{
+		this.case_perso = c;
+	}
 
+	public Case getCasePerso()
+	{
+	return this.case_perso;
+	}
 }

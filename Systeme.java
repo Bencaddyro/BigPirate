@@ -1,7 +1,7 @@
 
 public class Systeme 
 {
-	private Case[][] grille;
+	static Case[][] grille;
 	private Personnage[] collection_personnage;
 	private int nb_moussaillon = 3;
 	private int nb_perso = nb_moussaillon + 2;
@@ -133,8 +133,10 @@ public class Systeme
 	{
 		//Mise en place du pirate  
 		g[4][8].addPersonnage(collection_personnage[0]);
+		collection_personnage[0].setCasePerso(g[4][8]);
 		//Mise en place du fantôme
 		g[10][10].addPersonnage(collection_personnage[1]);
+		collection_personnage[1].setCasePerso(g[10][10]);
 		for (int i = 0; i< this.nb_moussaillon; i++)
 		{
 			//Ajout des trésorts dans la grotte 
@@ -143,14 +145,17 @@ public class Systeme
 			if(i == 0)
 			{
 				grille[10][0].addPersonnage(collection_personnage[2]);
+				collection_personnage[2].setCasePerso(g[10][0]);
 			}
 			if(i == 1)
 			{
 				grille[11][1].addPersonnage(collection_personnage[3]);
+				collection_personnage[3].setCasePerso(g[11][1]);
 			}
 			if(i == 2)
 			{
 				grille[11][0].addPersonnage(collection_personnage[4]);
+				collection_personnage[4].setCasePerso(g[11][0]);
 			}
 		}
 	}
