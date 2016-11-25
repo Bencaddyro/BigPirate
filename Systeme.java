@@ -1,7 +1,7 @@
 
 public class Systeme 
 {
-	private Case[][] grille;
+	private static Case[][] grille;
 	private Personnage[] collection_personnage;
 	private int nb_moussaillon = 3;
 	private int nb_perso = nb_moussaillon + 2;
@@ -36,7 +36,7 @@ public class Systeme
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	//GETTER and SETTER
 	//----------------------------------------------------------------------------------------------------------------------------------------
-	public Case[][] getGrille() {
+	public static Case[][] getGrille() {
 		return grille;
 	}
 	public void setGrille(Case[][] grille) {
@@ -48,6 +48,11 @@ public class Systeme
 	}
 	public void setCollection_personnage(Personnage[] collection_personnage) {
 		this.collection_personnage = collection_personnage;
+	}
+	
+	public Personnage getPersonnageCourant()
+	{
+		return collection_personnage[this.suivant];
 	}
 	
 	public int getNb_moussaillon() {
@@ -63,6 +68,7 @@ public class Systeme
 	public void setNb_perso(int nb_perso) {
 		this.nb_perso = nb_perso;
 	}
+
 
 	
 	// Initialisation de la grille
@@ -178,6 +184,43 @@ public class Systeme
 	
 	//TODO
 	//public boolean caseValide(Case case){}
+	
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//Deplacement
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	public void deplacement(String direction)
+	{
+		// Case indiquant la position du personnage
+		Case position = getPersonnageCourant().getPosition();
+		int pos_x = position.getX();
+		int pos_y = position.getY();
+		// Case que l'on localise grace à la direction indiquée 
+		//(Initialisation à position pour ne pas avoir de pb dans la vérification de la validitée de la case)
+		Case new_case = position ; 
+		if (direction == "Haut")
+		{
+			new_case = Systeme.getGrille()[pos_x][pos_y + 1];
+		}
+		if (direction == "Bas")
+		{
+			new_case = Systeme.getGrille()[pos_x][pos_y - 1];
+		}
+		if (direction == "Gauche")
+		{
+			new_case = Systeme.getGrille()[pos_x - 1][pos_y];
+		}
+		if (direction == "Droite")
+		{
+			new_case = Systeme.getGrille()[pos_x + 1][pos_y];
+		}		
+		//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
+		if(new_case.estValide())
+		{
+			getPersonnageCourant().bouge(new_case);
+		}
+	}
+	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	//Main (TEST)

@@ -22,28 +22,28 @@ public class Fantome extends Personnage {
 		int pos_x = this.zone_de_deplacement[3][0].getX();
 		int pos_y = this.zone_de_deplacement[3][0].getY();
 		
-		this.zone_de_deplacement[2][0] = Systeme.grille[pos_x -1][pos_y];
-		this.zone_de_deplacement[4][0] = Systeme.grille[pos_x +1][pos_y];
-		this.zone_de_deplacement[3][1] = Systeme.grille[pos_x][pos_y + 1];
+		this.zone_de_deplacement[2][0] = Systeme.getGrille()[pos_x -1][pos_y];
+		this.zone_de_deplacement[4][0] = Systeme.getGrille()[pos_x +1][pos_y];
+		this.zone_de_deplacement[3][1] = Systeme.getGrille()[pos_x][pos_y + 1];
 		
 		if (score >= 2 )
 		{
-			this.zone_de_deplacement[1][0] = Systeme.grille[pos_x - 2][pos_y];
-			this.zone_de_deplacement[5][0] = Systeme.grille[pos_x + 2][pos_y];
-			this.zone_de_deplacement[2][1] = Systeme.grille[pos_x - 1][pos_y + 1];
-			this.zone_de_deplacement[4][1] = Systeme.grille[pos_x + 1][pos_y + 1];
-			this.zone_de_deplacement[3][2] = Systeme.grille[pos_x][pos_y + 2];
+			this.zone_de_deplacement[1][0] = Systeme.getGrille()[pos_x - 2][pos_y];
+			this.zone_de_deplacement[5][0] = Systeme.getGrille()[pos_x + 2][pos_y];
+			this.zone_de_deplacement[2][1] = Systeme.getGrille()[pos_x - 1][pos_y + 1];
+			this.zone_de_deplacement[4][1] = Systeme.getGrille()[pos_x + 1][pos_y + 1];
+			this.zone_de_deplacement[3][2] = Systeme.getGrille()[pos_x][pos_y + 2];
 		}
 		
 		if (score == 3)
 		{
-			this.zone_de_deplacement[0][0] = Systeme.grille[pos_x - 3][pos_y];
-			this.zone_de_deplacement[6][0] = Systeme.grille[pos_x + 3][pos_y];
-			this.zone_de_deplacement[1][1] = Systeme.grille[pos_x - 2][pos_y + 1];
-			this.zone_de_deplacement[5][1] = Systeme.grille[pos_x + 2][pos_y + 1];
-			this.zone_de_deplacement[2][2] = Systeme.grille[pos_x - 1][pos_y + 2];
-			this.zone_de_deplacement[4][2] = Systeme.grille[pos_x + 1][pos_y + 2];
-			this.zone_de_deplacement[3][3] = Systeme.grille[pos_x][pos_y + 3];
+			this.zone_de_deplacement[0][0] = Systeme.getGrille()[pos_x - 3][pos_y];
+			this.zone_de_deplacement[6][0] = Systeme.getGrille()[pos_x + 3][pos_y];
+			this.zone_de_deplacement[1][1] = Systeme.getGrille()[pos_x - 2][pos_y + 1];
+			this.zone_de_deplacement[5][1] = Systeme.getGrille()[pos_x + 2][pos_y + 1];
+			this.zone_de_deplacement[2][2] = Systeme.getGrille()[pos_x - 1][pos_y + 2];
+			this.zone_de_deplacement[4][2] = Systeme.getGrille()[pos_x + 1][pos_y + 2];
+			this.zone_de_deplacement[3][3] = Systeme.getGrille()[pos_x][pos_y + 3];
 		}	
 	}
 	
@@ -58,10 +58,10 @@ public class Fantome extends Personnage {
 			}
 		}	
 		// On place le fantôme au centre du tableau
-		this.zone_de_deplacement[3][0] = this.getCasePerso();
+		this.zone_de_deplacement[3][0] = this.getPosition();
 	}
 	
-	
+
 	
 	
 	//TODO: poursuitMoussaillon
