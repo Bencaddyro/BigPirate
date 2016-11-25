@@ -25,7 +25,7 @@ public class Systeme
 			collection_personnage[2+i] = new Moussaillon(nb_moussaillon);
 		}
 		
-		this.miseEnPlace(this.grille);
+		this.miseEnPlace();
 		
 		//Annonce que c'est au tour du premier moussaillon de jouer
 		collection_personnage[this.suivant].aToiDeJouer();
@@ -136,12 +136,15 @@ public class Systeme
 	
 	
 	//Mise en place des personnages
-	public void miseEnPlace(Case[][] g)
+	public void miseEnPlace()
 	{
 		//Mise en place du pirate  
-		g[4][8].addPersonnage(collection_personnage[0]);
+		grille[4][8].addPersonnage(collection_personnage[0]);
+		collection_personnage[0].setPosition(grille[4][8]);
 		//Mise en place du fantôme
-		g[10][10].addPersonnage(collection_personnage[1]);
+		grille[10][10].addPersonnage(collection_personnage[1]);
+		collection_personnage[1].setPosition(grille[10][10]);
+		
 		for (int i = 0; i< this.nb_moussaillon; i++)
 		{
 			//Ajout des trésorts dans la grotte 
@@ -150,14 +153,17 @@ public class Systeme
 			if(i == 0)
 			{
 				grille[10][0].addPersonnage(collection_personnage[2]);
+				collection_personnage[2].setPosition(grille[10][0]);
 			}
 			if(i == 1)
 			{
 				grille[11][1].addPersonnage(collection_personnage[3]);
+				collection_personnage[3].setPosition(grille[11][1]);
 			}
 			if(i == 2)
 			{
 				grille[11][0].addPersonnage(collection_personnage[4]);
+				collection_personnage[4].setPosition(grille[11][0]);
 			}
 		}
 	}
@@ -175,7 +181,19 @@ public class Systeme
 	public void finDeTour()
 	{
 		this.suivant ++;
-		if(this.suivant == this.nb_perso)	this.suivant = 0;	
+		if(this.suivant == this.nb_perso)	this.suivant = 0;
+		if(suivant==0){
+			ihm.printVue("Menu Pirate");
+		}
+		if(suivant==2){
+			ihm.printVue("Menu Moussaillon 1");
+		}
+		if(suivant==3){
+			ihm.printVue("Menu Moussaillon 2");
+		}
+		if(suivant==4){
+			ihm.printVue("Menu Moussaillon 3");
+		}
 		collection_personnage[this.suivant].aToiDeJouer();
 	}
 	
@@ -198,19 +216,19 @@ public class Systeme
 		// Case que l'on localise grace à la direction indiquée 
 		//(Initialisation à position pour ne pas avoir de pb dans la vérification de la validitée de la case)
 		Case new_case = position ; 
-		if (direction == "Haut")
+		if (direction == "haut")
 		{
 			new_case = Systeme.getGrille()[pos_x][pos_y + 1];
 		}
-		if (direction == "Bas")
+		if (direction == "bas")
 		{
 			new_case = Systeme.getGrille()[pos_x][pos_y - 1];
 		}
-		if (direction == "Gauche")
+		if (direction == "gauche")
 		{
 			new_case = Systeme.getGrille()[pos_x - 1][pos_y];
 		}
-		if (direction == "Droite")
+		if (direction == "droite")
 		{
 			new_case = Systeme.getGrille()[pos_x + 1][pos_y];
 		}		
@@ -219,6 +237,7 @@ public class Systeme
 		{
 			getPersonnageCourant().bouge(new_case);
 		}
+		ihm.maj();
 	}
 	
 	

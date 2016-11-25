@@ -48,4 +48,11 @@ public class Moussaillon extends Personnage {
 	}
 
 
+
+	public void entrerCocotier() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

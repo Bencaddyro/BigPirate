@@ -23,6 +23,7 @@ public class Personnage {
 		new_case.addPersonnage(this);
 		// Dire au personnage sur qu'elle case il est
 		this.setPosition(new_case);
+		System.out.println("il a move en "+new_case.getX()+" "+new_case.getY());
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
@@ -33,6 +34,10 @@ public class Personnage {
 	}
 	public void setPosition(Case position) {
 		this.position = position;
+	}
+
+	public void lancerDe() {
+		
 	}
 
 }

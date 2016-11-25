@@ -19,15 +19,20 @@ public class IHM extends JFrame{
 	final static String MENUMOUSSAILLON2="Menu Moussaillon 2";
 	final static String MENUMOUSSAILLON3="Menu Moussaillon 3";
 	final static String MENUPIRATE="Menu Pirate";
+	JPanel machin;
+	Systeme syst;
 	
 	public IHM(final Systeme syst){
 
 		super("BigPirate");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(new Dimension(550,600));
+		this.setSize(new Dimension(800,800));
 		this.setLayout(new BorderLayout());
+		this.syst=syst;
+		machin=new Carte(syst);
 		
-		this.getContentPane().add(new Carte(syst),BorderLayout.CENTER);
+		
+		this.getContentPane().add(machin,BorderLayout.CENTER);
 				
 		
 		JPanel bottom=new JPanel(new BorderLayout());
@@ -110,7 +115,7 @@ public class IHM extends JFrame{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				syst.lancerDe();
+	    				syst.getPersonnageCourant().lancerDe();
 	    			}
 	    		}		
 	    	);
@@ -134,5 +139,10 @@ public class IHM extends JFrame{
 		((CardLayout) menu.getLayout()).show(menu,vue);
 	}
 
-	
+	public void maj(){
+		this.remove(machin);
+		machin=new Carte(syst);
+		this.getContentPane().add(machin,BorderLayout.CENTER);
+		this.validate();
+	}
 }
