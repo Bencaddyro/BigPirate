@@ -14,7 +14,10 @@ import javax.swing.JPanel;
 
 public class IHM extends JFrame{
 	static int n=12;
-	final static String MENUMOUSSAILLON="Menu Moussaillon";
+	final JPanel menu=new JPanel(new CardLayout());
+	final static String MENUMOUSSAILLON1="Menu Moussaillon 1";
+	final static String MENUMOUSSAILLON2="Menu Moussaillon 2";
+	final static String MENUMOUSSAILLON3="Menu Moussaillon 3";
 	final static String MENUPIRATE="Menu Pirate";
 	
 	public IHM(final Systeme syst){
@@ -29,26 +32,18 @@ public class IHM extends JFrame{
 		
 		JPanel bottom=new JPanel(new BorderLayout());
 		JPanel direction =new JPanel(new BorderLayout());
-		final JPanel menu=new JPanel(new CardLayout());
 		final JPanel de=new JPanel(new BorderLayout());
 		JButton finDuTour=new JButton("Fin du tour");
 		
-		JPanel menuMoussaillon=new JPanel(new GridLayout(1,2));
+		vueMoussaillon menuMoussaillon1=new vueMoussaillon("Moussaillon1",syst);
+		vueMoussaillon menuMoussaillon2=new vueMoussaillon("Moussaillon2",syst);
+		vueMoussaillon menuMoussaillon3=new vueMoussaillon("Moussaillon3",syst);
 		JPanel menuPirate=new JPanel();
 		
 		
 		JLabel text =new JLabel("Menu info & kotopo kotopo");
 
-		JPanel carteCocotier= new JPanel(new BorderLayout());
-		carteCocotier.add(new JButton("Cocotier"),BorderLayout.NORTH);
-		carteCocotier.add(new JLabel("3"),BorderLayout.CENTER);
-		menuMoussaillon.add(carteCocotier);
 
-		JPanel cartePerroquet= new JPanel(new BorderLayout());
-		cartePerroquet.add(new JButton("Perroquet"),BorderLayout.NORTH);
-		cartePerroquet.add(new JLabel("4"),BorderLayout.CENTER);
-		menuMoussaillon.add(cartePerroquet);
-		
 		JButton lancerDe=new JButton("Lance le dé!");
 		de.add(lancerDe,BorderLayout.NORTH);
 		final JLabel resultDe=new JLabel("En attente du résultat");
@@ -56,7 +51,9 @@ public class IHM extends JFrame{
 		
 		menuPirate.add(new JLabel("Menu Pirate"));
 		
-		menu.add(menuMoussaillon, MENUMOUSSAILLON);
+		menu.add(menuMoussaillon1, MENUMOUSSAILLON1);
+		menu.add(menuMoussaillon2, MENUMOUSSAILLON2);
+		menu.add(menuMoussaillon3, MENUMOUSSAILLON3);
 		menu.add(menuPirate, MENUPIRATE);
 		
 		JButton haut=new JButton("Haut"),bas=new JButton("Bas"),droite=new JButton("Droite"),gauche=new JButton("Gauche");
@@ -75,7 +72,8 @@ public class IHM extends JFrame{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				((CardLayout) menu.getLayout()).next(menu);
+	    				//((CardLayout) menu.getLayout()).next(menu);
+	    				syst.deplacement("gauche");
 	    			}
 	    		}		
 	    	);
@@ -83,8 +81,9 @@ public class IHM extends JFrame{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				CardLayout cl = (CardLayout)(menu.getLayout());
-	    				cl.first(menu);
+	    				//CardLayout cl = (CardLayout)(menu.getLayout());
+	    				//cl.first(menu);
+	    				syst.deplacement("droite");
 	    			}
 	    		}		
 	    	);
@@ -92,17 +91,26 @@ public class IHM extends JFrame{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
+	    				syst.deplacement("bas");
 	    				
 	    			}
 	    		}		
 	    	);
 
+		haut.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				syst.deplacement("haut");
+	    				
+	    			}
+	    		}		
+	    	);
 		lancerDe.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				Integer res=new Des6().lancerDe();
-	    				resultDe.setText(res.toString());
+	    				syst.lancerDe();
 	    			}
 	    		}		
 	    	);
@@ -116,13 +124,15 @@ public class IHM extends JFrame{
 	    		}		
 	    	);
 		
-		
+
 		
 		this.getContentPane().add(bottom,BorderLayout.SOUTH);		
 		this.setVisible(true);
 	}
 	
-	
+	public void printVue(String vue){
+		((CardLayout) menu.getLayout()).show(menu,vue);
+	}
 
 	
 }
