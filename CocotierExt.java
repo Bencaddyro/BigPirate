@@ -14,4 +14,8 @@ public class CocotierExt extends Case {
 	public Boolean cocotierExt(){
 		return true;
 	}
+	
+	public Case getCoco(){
+		return coco;
+	}
 }
