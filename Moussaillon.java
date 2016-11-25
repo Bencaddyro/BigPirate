@@ -19,5 +19,33 @@ public class Moussaillon extends Personnage {
 		}
 		path="src/moussaillon.png";
 	}
+	
+	
+	
+	public void aToiDeJouer(){
+		
+		
+		
+		
+	}
+	
+	public void cartePerroquet(){
+		if(collectionPerroquet.isEmpty()){
+			System.out.println("utilisation carte perroquet alors que yan a pu ! #fungenieur");
+		}
+		else{
+			collectionPerroquet.remove(collectionPerroquet.iterator().next());
+		}
+	}
+	
+	public void carteCocotier(){
+		if(collectionCocotier.isEmpty()){
+			System.out.println("utilisation carte cocotier alors que yan a pu ! #fungenieur");
+		}
+		else{
+			collectionCocotier.remove(collectionCocotier.iterator().next());
+		}
+	}
+
 
 }
