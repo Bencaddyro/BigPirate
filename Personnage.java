@@ -13,17 +13,6 @@ public class Personnage {
 	
 	public void aToiDeJouer(){}
 
-
-	//Bouge
-	public void bouge(Case new_case)
-	{
-		// Dire à  l'ancienne case que le personnage n'est plus dessus
-		(this.getPosition()).removePersonnage(this);
-		// Dire à  la nouvelle case que le personnage est dessus
-		new_case.addPersonnage(this);
-		// Dire au personnage sur qu'elle case il est
-		this.setPosition(new_case);
-	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	//GETTER and SETTER
