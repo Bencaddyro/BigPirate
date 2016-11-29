@@ -3,9 +3,14 @@ public class Personnage {
 	private Case position;
 	protected Des de; 
 	protected String path;
+	private int score;
 	
-	
-	
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int i){
+		this.score=i;
+	}
 	
 	public String getPath() {
 		return path;
@@ -37,7 +42,11 @@ public class Personnage {
 	}
 
 	public void lancerDe() {
-		
+		score=this.de.lancerDe();
+	}
+
+	public boolean estValide(Case new_case) {
+		return true;
 	}
 
 }

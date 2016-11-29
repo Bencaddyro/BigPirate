@@ -42,6 +42,9 @@ public abstract class Case {
 	public Boolean cocotierExt(){
 		return false;
 	}
+	public Boolean barque(){
+		return false;
+	}
 	public Tresor tresorPresent(){
 		if(inventaire.isEmpty()){
 			return null;

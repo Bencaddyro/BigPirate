@@ -7,11 +7,19 @@ public class Systeme
 	private int nb_perso = nb_moussaillon + 2;
 	private int suivant = 2; //indique à qui est le tour de jeu
 	private IHM ihm;
+	private static Systeme instance=null;
 	
 
 //coordoner de la map en bas a gauche case 0,0	
 	
-	public Systeme()
+	public static Systeme getSystem(){
+		if(instance==null){
+			instance=new Systeme();
+		}
+		return instance;
+	}
+	
+	private Systeme()
 	{
 		
 		this.initGrille();
@@ -195,6 +203,7 @@ public class Systeme
 			ihm.printVue("Menu Moussaillon 3");
 		}
 		collection_personnage[this.suivant].aToiDeJouer();
+		System.out.println("Fin de tour !");
 	}
 	
 	//TODO
@@ -235,7 +244,14 @@ public class Systeme
 		//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
 		if(new_case.estValide())
 		{
-			getPersonnageCourant().bouge(new_case);
+			if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
+				if(getPersonnageCourant().estValide(new_case)){
+					getPersonnageCourant().bouge(new_case);
+				}
+			}
+			else{
+				getPersonnageCourant().bouge(new_case);
+			}
 		}
 		ihm.maj();
 	}
