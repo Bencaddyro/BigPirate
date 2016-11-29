@@ -10,4 +10,7 @@ public class Barque extends Case{
 		return true;
 	}
 	
+	public Boolean barque(){
+		return true;
+	}
 }
