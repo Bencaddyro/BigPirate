@@ -39,12 +39,15 @@ public class Moussaillon extends Personnage {
 		else{
 			setScore(this.de.lancerDe());
 		}
-		
 	}
 	
 	public void aToiDeJouer(){
 		perroquet=false;
 		historique=null;		
+	}
+	
+	public void meurs(){
+		this.getPosition().removePersonnage(this);
 	}
 	
 	public void cartePerroquet(){

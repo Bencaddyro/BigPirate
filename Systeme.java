@@ -262,7 +262,7 @@ public class Systeme
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	public static void main(String[] args)
 	{
-		Systeme systeme = new Systeme();
+		Systeme systeme = Systeme.getSystem();
 		
 		
 	}

@@ -7,6 +7,7 @@ public class CocotierExt extends Case {
 		super(_x, _y);
 		coco=_coco;
 		path="src/cocotierext.png";
+		((CocotierInter)_coco).setExtCoco(this);
 	}
 	public Boolean estValide(){
 		return true;
