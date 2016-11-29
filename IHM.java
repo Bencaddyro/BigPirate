@@ -19,6 +19,7 @@ public class IHM extends JFrame{
 	final static String MENUMOUSSAILLON2="Menu Moussaillon 2";
 	final static String MENUMOUSSAILLON3="Menu Moussaillon 3";
 	final static String MENUPIRATE="Menu Pirate";
+	final static String MENUFANTOME="Menu Fantome";
 	JPanel machin;
 	Systeme syst;
 	
@@ -40,10 +41,12 @@ public class IHM extends JFrame{
 		final JPanel de=new JPanel(new BorderLayout());
 		JButton finDuTour=new JButton("Fin du tour");
 		
-		VueMoussaillon menuMoussaillon1=new VueMoussaillon("Moussaillon1",syst);
-		VueMoussaillon menuMoussaillon2=new VueMoussaillon("Moussaillon2",syst);
-		VueMoussaillon menuMoussaillon3=new VueMoussaillon("Moussaillon3",syst);
+		//Déclaration des vues/menus
+		vueMoussaillon menuMoussaillon1=new vueMoussaillon("Moussaillon1",syst);
+		vueMoussaillon menuMoussaillon2=new vueMoussaillon("Moussaillon2",syst);
+		vueMoussaillon menuMoussaillon3=new vueMoussaillon("Moussaillon3",syst);
 		JPanel menuPirate=new JPanel();
+		JPanel menuFantome=new JPanel();
 		
 		
 		JLabel text =new JLabel("Menu info & kotopo kotopo");
@@ -55,11 +58,13 @@ public class IHM extends JFrame{
 		de.add(resultDe,BorderLayout.CENTER);
 		
 		menuPirate.add(new JLabel("Menu Pirate"));
+		menuFantome.add(new JLabel("Menu Fantome"));
 		
 		menu.add(menuMoussaillon1, MENUMOUSSAILLON1);
 		menu.add(menuMoussaillon2, MENUMOUSSAILLON2);
 		menu.add(menuMoussaillon3, MENUMOUSSAILLON3);
 		menu.add(menuPirate, MENUPIRATE);
+		menu.add(menuFantome, MENUFANTOME);
 		
 		JButton haut=new JButton("Haut"),bas=new JButton("Bas"),droite=new JButton("Droite"),gauche=new JButton("Gauche");
 		
@@ -124,6 +129,7 @@ public class IHM extends JFrame{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
+	    				System.out.println("Fin du tour de " + syst.getPersonnageCourant().toString());
 	    				syst.finDeTour();
 	    			}
 	    		}		
@@ -144,5 +150,6 @@ public class IHM extends JFrame{
 		machin=new Carte(syst);
 		this.getContentPane().add(machin,BorderLayout.CENTER);
 		this.validate();
+		System.out.println("Maj IHM");
 	}
 }
