@@ -54,8 +54,16 @@ public class IHM extends JFrame{
 
 		JButton lancerDe=new JButton("Lance le dé!");
 		de.add(lancerDe,BorderLayout.NORTH);
+		
+		JPanel traitementDe=new JPanel(new BorderLayout());
+		
 		final JLabel resultDe=new JLabel("En attente du résultat");
-		de.add(resultDe,BorderLayout.CENTER);
+		final JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
+		
+		traitementDe.add(resultDe,BorderLayout.NORTH);
+		traitementDe.add(nbDeplacementRestant,BorderLayout.CENTER);
+		
+		de.add(traitementDe,BorderLayout.CENTER);
 		
 		menuPirate.add(new JLabel("Menu Pirate"));
 		menuFantome.add(new JLabel("Menu Fantome"));
@@ -84,6 +92,7 @@ public class IHM extends JFrame{
 	    				//fonction de deplacement
 	    				//((CardLayout) menu.getLayout()).next(menu);
 	    				syst.deplacement("gauche");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
 	    			}
 	    		}		
 	    	);
@@ -94,6 +103,7 @@ public class IHM extends JFrame{
 	    				//CardLayout cl = (CardLayout)(menu.getLayout());
 	    				//cl.first(menu);
 	    				syst.deplacement("droite");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
 	    			}
 	    		}		
 	    	);
@@ -102,6 +112,7 @@ public class IHM extends JFrame{
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
 	    				syst.deplacement("bas");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
 	    				
 	    			}
 	    		}		
@@ -112,6 +123,7 @@ public class IHM extends JFrame{
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
 	    				syst.deplacement("haut");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
 	    				
 	    			}
 	    		}		
@@ -120,7 +132,9 @@ public class IHM extends JFrame{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				syst.getPersonnageCourant().lancerDe();
+	    				syst.lancerDe();
+	    				resultDe.setText(""+syst.getPersonnageCourant().getScore());
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
 	    			}
 	    		}		
 	    	);

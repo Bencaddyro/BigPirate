@@ -15,6 +15,7 @@ public class Pirate extends Personnage {
 
 	public boolean estValide(Case destination){
 		if (this.historique==destination){
+			System.out.println("Ne reviens pas sur tes pas !");
 			return false;
 		}
 		else{
@@ -23,35 +24,27 @@ public class Pirate extends Personnage {
 	}
 	
 	public void bouge(Case new_case){
-		if (this.estValide(new_case)){
-			this.historique=getPosition();
-			super.bouge(new_case);
-			
-			//Interactions
-			
-			Iterator<Personnage> itPerso = getPosition().getEquipage().iterator();
-			for(int i=0;i<getPosition().getEquipage().size();i++){
-				System.out.println(""+i);
-				Personnage mecSurLaCase=itPerso.next();
-				System.out.println(mecSurLaCase.toString());
-				if (mecSurLaCase instanceof Moussaillon){
-					((Moussaillon) mecSurLaCase).meurs();
-					System.out.println("Meurs " + mecSurLaCase.toString() + " !");
-					
-				}
-			}
-
-			Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
-			for(int i=0;i<getPosition().getInventaire().size();i++){
-				System.out.println(""+i);
-				Tresor tresorSurLaCase=getPosition().getInventaire().iterator().next();
-				tresorSurLaCase.retourGrotte();
-				System.out.println("Trésor " + tresorSurLaCase.toString() + " attrappé !");
-					
+		this.historique=getPosition();
+		super.bouge(new_case);
+		
+		//Interactions
+		
+		Iterator<Personnage> itPerso = getPosition().getEquipage().iterator();
+		for(int i=0;i<getPosition().getEquipage().size();i++){
+			Personnage mecSurLaCase=itPerso.next();
+			if (mecSurLaCase instanceof Moussaillon){
+				((Moussaillon) mecSurLaCase).meurs();
+				System.out.println("Meurs " + mecSurLaCase.toString() + " !");
+				
 			}
 		}
-		else{
-			System.out.println("Ne reviens pas sur tes pas !");
+
+		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
+		for(int i=0;i<getPosition().getInventaire().size();i++){
+			Tresor tresorSurLaCase=getPosition().getInventaire().iterator().next();
+			tresorSurLaCase.retourGrotte();
+			System.out.println("Trésor " + tresorSurLaCase.toString() + " attrappé !");
+				
 		}
 	}
 }
