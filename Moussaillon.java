@@ -19,7 +19,10 @@ public class Moussaillon extends Personnage {
 		for(int i=0;i<tab[1][nbMoussaillon-1];i++){
 			this.collectionPerroquet.add(new Perroquet());
 		}
-		path="src/moussaillon.png";
+		path="src/moussaillon.png";	
+		
+		//Partie de Manu, comment il lance un dé si il en a pas ?
+		this.de=new Des3();
 	}
 	
 	public void bouge(Case new_case){

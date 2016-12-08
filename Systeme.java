@@ -8,6 +8,8 @@ public class Systeme
 	private int suivant = 2; //indique à qui est le tour de jeu
 	private IHM ihm;
 	private static Systeme instance=null;
+	private int nbDeplacementRestant;
+	private boolean delance;
 	
 
 //coordoner de la map en bas a gauche case 0,0	
@@ -27,6 +29,9 @@ public class Systeme
 		collection_personnage = new Personnage[nb_perso];
 		collection_personnage[0]=new Pirate();
 		collection_personnage[1]=new Fantome();
+		
+		delance=false;
+		nbDeplacementRestant=0;
 		
 		for(int i = 0; i < nb_moussaillon; i++)
 		{
@@ -75,6 +80,10 @@ public class Systeme
 	}
 	public void setNb_perso(int nb_perso) {
 		this.nb_perso = nb_perso;
+	}
+	
+	public int getNbDeplacementRestant(){
+		return nbDeplacementRestant;
 	}
 
 
@@ -193,6 +202,9 @@ public class Systeme
 		if(suivant==0){
 			ihm.printVue("Menu Pirate");
 		}
+		if(suivant==1){
+			ihm.printVue("Menu Fantome");
+		}
 		if(suivant==2){
 			ihm.printVue("Menu Moussaillon 1");
 		}
@@ -203,6 +215,8 @@ public class Systeme
 			ihm.printVue("Menu Moussaillon 3");
 		}
 		collection_personnage[this.suivant].aToiDeJouer();
+		delance=false;
+		nbDeplacementRestant=0;
 		System.out.println("Fin de tour !");
 	}
 	
@@ -218,42 +232,66 @@ public class Systeme
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	public void deplacement(String direction)
 	{
-		// Case indiquant la position du personnage
-		Case position = getPersonnageCourant().getPosition();
-		int pos_x = position.getX();
-		int pos_y = position.getY();
-		// Case que l'on localise grace à la direction indiquée 
-		//(Initialisation à position pour ne pas avoir de pb dans la vérification de la validitée de la case)
-		Case new_case = position ; 
-		if (direction == "haut")
-		{
-			new_case = Systeme.getGrille()[pos_x][pos_y + 1];
-		}
-		if (direction == "bas")
-		{
-			new_case = Systeme.getGrille()[pos_x][pos_y - 1];
-		}
-		if (direction == "gauche")
-		{
-			new_case = Systeme.getGrille()[pos_x - 1][pos_y];
-		}
-		if (direction == "droite")
-		{
-			new_case = Systeme.getGrille()[pos_x + 1][pos_y];
-		}		
-		//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
-		if(new_case.estValide())
-		{
-			if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
-				if(getPersonnageCourant().estValide(new_case)){
-					getPersonnageCourant().bouge(new_case);
-				}
+		if (nbDeplacementRestant==0){
+			if(delance){
+				System.out.println("Plus de déplacement disponible\n");
 			}
 			else{
-				getPersonnageCourant().bouge(new_case);
+				System.out.println("Lance le dé avant !\n");
 			}
 		}
-		ihm.maj();
+		else{
+			// Case indiquant la position du personnage
+			Case position = getPersonnageCourant().getPosition();
+			int pos_x = position.getX();
+			int pos_y = position.getY();
+			// Case que l'on localise grace à la direction indiquée 
+			//(Initialisation à position pour ne pas avoir de pb dans la vérification de la validitée de la case)
+			Case new_case = position ; 
+			if (direction == "haut")
+			{
+				new_case = Systeme.getGrille()[pos_x][pos_y + 1];
+			}
+			if (direction == "bas")
+			{
+				new_case = Systeme.getGrille()[pos_x][pos_y - 1];
+			}
+			if (direction == "gauche")
+			{
+				new_case = Systeme.getGrille()[pos_x - 1][pos_y];
+			}
+			if (direction == "droite")
+			{
+				new_case = Systeme.getGrille()[pos_x + 1][pos_y];
+			}		
+			//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
+			if(new_case.estValide())
+			{
+				if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
+					if(getPersonnageCourant().estValide(new_case)){
+						getPersonnageCourant().bouge(new_case);
+						nbDeplacementRestant--;
+					}
+				}
+				else{
+					getPersonnageCourant().bouge(new_case);
+					nbDeplacementRestant--;
+				}
+			}
+			ihm.maj();
+		}
+	}
+	
+	//Lancer de dé avec set du score toussa
+	public void lancerDe(){
+		if(delance==false){
+			getPersonnageCourant().lancerDe();
+			nbDeplacementRestant=getPersonnageCourant().getScore();
+			delance=true;
+		}
+		else{
+			System.out.println("Dé déjà lancé ! Tricheur :o");
+		}
 	}
 	
 	
