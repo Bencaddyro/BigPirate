@@ -11,17 +11,12 @@ public class VuePirate extends VueJoueur{
 
 	
 	
-	public VuePirate(){
-		super();
+	public VuePirate(Personnage p){
+		super(p);
+		
+		p.registerObserver(this);
+		
 		this.add(new JLabel("Menu Pirate"),BorderLayout.EAST);
-	}
-		
-	
-	
-	
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

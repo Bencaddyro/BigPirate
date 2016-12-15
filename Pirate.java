@@ -43,7 +43,8 @@ public class Pirate extends Personnage {
 		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
 		System.out.println("nb trésor sur la case : "+this.getPosition().getInventaire().size());
 		for(int i=0;i<this.getPosition().getInventaire().size();i++){
-			Tresor tresorSurLaCase=getPosition().getInventaire().iterator().next();
+			Tresor tresorSurLaCase=itTresor.next();
+			getPosition().inventaire.remove(tresorSurLaCase);
 			tresorSurLaCase.retourGrotte();
 			System.out.println("Trésor " + tresorSurLaCase.toString() + " attrappé !");
 				

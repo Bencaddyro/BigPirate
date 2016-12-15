@@ -14,19 +14,21 @@ public abstract class VueJoueur extends JPanel implements Observer{
 
 
 	
-	JPanel croix = new CroixDirection();
-	JPanel lancement = new LancementDe();
+	CroixDirection croix = new CroixDirection();
+	LancementDe lancement = new LancementDe();
 	JButton finDuTour=new JButton("Fin du tour");
 
 
 	
 	
-	public VueJoueur() {
+	public VueJoueur(Personnage p) {
 		super(new BorderLayout());
 		
 		this.add(croix,BorderLayout.WEST);
 		this.add(lancement,BorderLayout.CENTER);
 		this.add(finDuTour,BorderLayout.SOUTH);
+		
+		p.registerObserver(lancement);
 		
 		finDuTour.addActionListener(
 	    		new ActionListener(){
@@ -40,7 +42,7 @@ public abstract class VueJoueur extends JPanel implements Observer{
 
 
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 		

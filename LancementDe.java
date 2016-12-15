@@ -26,16 +26,17 @@ public class LancementDe extends JPanel implements Observer{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				Systeme.getSystem().lancerDe();
-	    				resultDe.setText(""+Systeme.getSystem().getPersonnageCourant().getScore());
-	    				nbDeplacementRestant.setText(Systeme.getSystem().getNbDeplacementRestant()+" déplacements restants");
+	    				System.out.println("tentative lancement des 0");
+	    				Systeme.getSystem().getPersonnageCourant().lancerDe("bula");
+	    				System.out.println("de lancer 0");
 	    			}
 	    		}		
 	    	);
 	}
 		
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		resultDe.setText("Résulta du dé : "+((Personnage)o).getScore());
+		nbDeplacementRestant.setText("Move dispo : "+((Personnage)o).getNbDeplacementRestant());
 		
 	}
 	
