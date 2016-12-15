@@ -23,8 +23,6 @@ public class IHM extends JFrame{
 	String MENUPIRATE="Menu Pirate";
 	String MENUFANTOME="Menu Fantome";
 	
-	JPanel machin;
-	
 	public IHM(){
 
 		super("BigPirate");
@@ -33,7 +31,7 @@ public class IHM extends JFrame{
 		this.setLayout(new BorderLayout());
 		
 		//interface visualisation plateau
-		carte=new Carte(Systeme.getSystem());
+		carte=new Carte();
 		this.getContentPane().add(carte,BorderLayout.CENTER);
 				
 		
@@ -72,11 +70,5 @@ public class IHM extends JFrame{
 		((CardLayout) menu.getLayout()).show(menu,vue);
 	}
 
-	public void maj(){
-		this.remove(machin);
-		machin=new Carte(Systeme.getSystem());
-		this.getContentPane().add(machin,BorderLayout.CENTER);
-		this.validate();
-		System.out.println("Maj IHM");
-	}
+
 }

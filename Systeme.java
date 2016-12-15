@@ -283,7 +283,7 @@ public class Systeme
 					nbDeplacementRestant--;
 				}
 			}
-			ihm.maj();
+			//ihm.maj();
 		}
 	}
 	

@@ -32,7 +32,7 @@ public class Personnage extends Observable {
 		for (Observer o: this.observers){
 			o.update(this,this);
 		}
-		System.out.println("ON notify !");
+		//System.out.println("ON notify !");
 	}
 	public void registerObserver(Observer obs){
 		observers.add(obs);
