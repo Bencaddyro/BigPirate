@@ -40,10 +40,12 @@ public class Systeme
 		
 		this.miseEnPlace();
 		
+		ihm=new IHM(this);
+		
 		//Annonce que c'est au tour du premier moussaillon de jouer
 		collection_personnage[this.suivant].aToiDeJouer();
 		
-		ihm=new IHM(this);
+		
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
@@ -197,8 +199,12 @@ public class Systeme
 	//public Personnage suivant()
 	public void finDeTour()
 	{
-		this.suivant ++;
-		if(this.suivant == this.nb_perso)	this.suivant = 0;
+
+		do{
+			this.suivant=((this.suivant+1)%nb_perso);
+		}while(!collection_personnage[suivant].isVivant());		
+		
+		
 		if(suivant==0){
 			ihm.printVue("Menu Pirate");
 		}

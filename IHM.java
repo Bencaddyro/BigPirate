@@ -30,6 +30,7 @@ public class IHM extends JFrame{
 		this.setSize(new Dimension(800,800));
 		this.setLayout(new BorderLayout());
 		this.syst=syst;
+		
 		machin=new Carte(syst);
 		
 		
@@ -45,6 +46,11 @@ public class IHM extends JFrame{
 		vueMoussaillon menuMoussaillon1=new vueMoussaillon("Moussaillon1",syst);
 		vueMoussaillon menuMoussaillon2=new vueMoussaillon("Moussaillon2",syst);
 		vueMoussaillon menuMoussaillon3=new vueMoussaillon("Moussaillon3",syst);
+		
+		syst.getCollection_personnage()[2].registerObserver(menuMoussaillon1);
+		syst.getCollection_personnage()[3].registerObserver(menuMoussaillon2);
+		syst.getCollection_personnage()[4].registerObserver(menuMoussaillon3);
+		
 		JPanel menuPirate=new JPanel();
 		JPanel menuFantome=new JPanel();
 		
