@@ -88,7 +88,17 @@ public abstract class Case extends Observable {
 		notifyObservers();
 	}
 	public Moussaillon moussaillonPresent() {
-		// TODO Auto-generated method stub
+		Personnage perso = this.personnagePresent();
+		System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + perso);
+		if (perso != null)
+		{
+			System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ");
+			if (perso.getClass() == Moussaillon.class)
+			{
+				System.out.println("Je suis LA!!!!!!!!!!!!! ");
+				return (Moussaillon) perso;
+			}
+		}
 		return null;
 	}
 	
@@ -105,3 +115,4 @@ public abstract class Case extends Observable {
 	}
 	
 }
+
