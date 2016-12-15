@@ -7,21 +7,11 @@ public class Systeme
 	private int nb_perso = nb_moussaillon + 2;
 	private int suivant = 2; //indique à qui est le tour de jeu
 	private IHM ihm;
-	private static Systeme instance=null;
-	private int nbDeplacementRestant;
-	private boolean delance;
 	
 
 //coordoner de la map en bas a gauche case 0,0	
 	
-	public static Systeme getSystem(){
-		if(instance==null){
-			instance=new Systeme();
-		}
-		return instance;
-	}
-	
-	private Systeme()
+	public Systeme()
 	{
 		
 		this.initGrille();
@@ -30,15 +20,12 @@ public class Systeme
 		collection_personnage[0]=new Pirate();
 		collection_personnage[1]=new Fantome();
 		
-		delance=false;
-		nbDeplacementRestant=0;
-		
 		for(int i = 0; i < nb_moussaillon; i++)
 		{
 			collection_personnage[2+i] = new Moussaillon(nb_moussaillon);
 		}
 		
-		this.miseEnPlace();
+		this.miseEnPlace(this.grille);
 		
 		//Annonce que c'est au tour du premier moussaillon de jouer
 		collection_personnage[this.suivant].aToiDeJouer();
@@ -63,11 +50,6 @@ public class Systeme
 		this.collection_personnage = collection_personnage;
 	}
 	
-	public Personnage getPersonnageCourant()
-	{
-		return collection_personnage[this.suivant];
-	}
-	
 	public int getNb_moussaillon() {
 		return nb_moussaillon;
 	}
@@ -81,11 +63,6 @@ public class Systeme
 	public void setNb_perso(int nb_perso) {
 		this.nb_perso = nb_perso;
 	}
-	
-	public int getNbDeplacementRestant(){
-		return nbDeplacementRestant;
-	}
-
 
 	
 	// Initialisation de la grille
@@ -153,15 +130,12 @@ public class Systeme
 	
 	
 	//Mise en place des personnages
-	public void miseEnPlace()
+	public void miseEnPlace(Case[][] g)
 	{
 		//Mise en place du pirate  
-		grille[4][8].addPersonnage(collection_personnage[0]);
-		collection_personnage[0].setPosition(grille[4][8]);
+		g[4][8].addPersonnage(collection_personnage[0]);
 		//Mise en place du fantôme
-		grille[10][10].addPersonnage(collection_personnage[1]);
-		collection_personnage[1].setPosition(grille[10][10]);
-		
+		g[10][10].addPersonnage(collection_personnage[1]);
 		for (int i = 0; i< this.nb_moussaillon; i++)
 		{
 			//Ajout des trésorts dans la grotte 
@@ -170,17 +144,14 @@ public class Systeme
 			if(i == 0)
 			{
 				grille[10][0].addPersonnage(collection_personnage[2]);
-				collection_personnage[2].setPosition(grille[10][0]);
 			}
 			if(i == 1)
 			{
 				grille[11][1].addPersonnage(collection_personnage[3]);
-				collection_personnage[3].setPosition(grille[11][1]);
 			}
 			if(i == 2)
 			{
 				grille[11][0].addPersonnage(collection_personnage[4]);
-				collection_personnage[4].setPosition(grille[11][0]);
 			}
 		}
 	}
@@ -198,26 +169,8 @@ public class Systeme
 	public void finDeTour()
 	{
 		this.suivant ++;
-		if(this.suivant == this.nb_perso)	this.suivant = 0;
-		if(suivant==0){
-			ihm.printVue("Menu Pirate");
-		}
-		if(suivant==1){
-			ihm.printVue("Menu Fantome");
-		}
-		if(suivant==2){
-			ihm.printVue("Menu Moussaillon 1");
-		}
-		if(suivant==3){
-			ihm.printVue("Menu Moussaillon 2");
-		}
-		if(suivant==4){
-			ihm.printVue("Menu Moussaillon 3");
-		}
+		if(this.suivant == this.nb_perso)	this.suivant = 0;	
 		collection_personnage[this.suivant].aToiDeJouer();
-		delance=false;
-		nbDeplacementRestant=0;
-		System.out.println("Fin de tour !");
 	}
 	
 	//TODO
@@ -226,81 +179,12 @@ public class Systeme
 	//TODO
 	//public boolean caseValide(Case case){}
 	
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------
-	//Deplacement
-	//----------------------------------------------------------------------------------------------------------------------------------------
-	public void deplacement(String direction)
-	{
-		if (nbDeplacementRestant==0){
-			if(delance){
-				System.out.println("Plus de déplacement disponible\n");
-			}
-			else{
-				System.out.println("Lance le dé avant !\n");
-			}
-		}
-		else{
-			// Case indiquant la position du personnage
-			Case position = getPersonnageCourant().getPosition();
-			int pos_x = position.getX();
-			int pos_y = position.getY();
-			// Case que l'on localise grace à la direction indiquée 
-			//(Initialisation à position pour ne pas avoir de pb dans la vérification de la validitée de la case)
-			Case new_case = position ; 
-			if (direction == "haut")
-			{
-				new_case = Systeme.getGrille()[pos_x][pos_y + 1];
-			}
-			if (direction == "bas")
-			{
-				new_case = Systeme.getGrille()[pos_x][pos_y - 1];
-			}
-			if (direction == "gauche")
-			{
-				new_case = Systeme.getGrille()[pos_x - 1][pos_y];
-			}
-			if (direction == "droite")
-			{
-				new_case = Systeme.getGrille()[pos_x + 1][pos_y];
-			}		
-			//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
-			if(new_case.estValide())
-			{
-				if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
-					if(getPersonnageCourant().estValide(new_case)){
-						getPersonnageCourant().bouge(new_case);
-						nbDeplacementRestant--;
-					}
-				}
-				else{
-					getPersonnageCourant().bouge(new_case);
-					nbDeplacementRestant--;
-				}
-			}
-			ihm.maj();
-		}
-	}
-	
-	//Lancer de dé avec set du score toussa
-	public void lancerDe(){
-		if(delance==false){
-			getPersonnageCourant().lancerDe();
-			nbDeplacementRestant=getPersonnageCourant().getScore();
-			delance=true;
-		}
-		else{
-			System.out.println("Dé déjà lancé ! Tricheur :o");
-		}
-	}
-	
-	
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	//Main (TEST)
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	public static void main(String[] args)
 	{
-		Systeme systeme = Systeme.getSystem();
+		Systeme systeme = new Systeme();
 		
 		
 	}
