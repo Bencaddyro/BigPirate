@@ -40,7 +40,7 @@ public class Systeme
 		
 		this.miseEnPlace();
 		
-		ihm=new IHM(this);
+		//ihm=new IHM();
 		
 		//Annonce que c'est au tour du premier moussaillon de jouer
 		collection_personnage[this.suivant].aToiDeJouer();
@@ -89,7 +89,6 @@ public class Systeme
 	}
 
 
-	
 	// Initialisation de la grille
 	public void initGrille()
 	{
@@ -307,7 +306,7 @@ public class Systeme
 	public static void main(String[] args)
 	{
 		Systeme systeme = Systeme.getSystem();
-		
+		systeme.ihm=new IHM();
 		
 	}
 
