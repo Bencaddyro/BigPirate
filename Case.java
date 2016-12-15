@@ -1,9 +1,10 @@
 import java.util.AbstractCollection;
 import java.util.HashSet;
+import java.util.Observable;
 
 
 
-public abstract class Case {
+public abstract class Case extends Observable{
 
 	protected String path;
 	protected Integer x;
