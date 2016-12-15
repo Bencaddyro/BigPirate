@@ -213,7 +213,8 @@ public class Fantome extends Personnage {
 					if (moussaillon_victime != null)
 					{
 						this.majNbDeplacement(moussaillon_victime.getPosition());
-						moussaillon_victime.poursuit();
+						this.bouge(moussaillon_victime.getPosition());
+						moussaillon_victime.bouh();
 					}
 				}
 				j++;
