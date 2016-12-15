@@ -2,6 +2,7 @@
 
 public class Fantome extends Personnage {
 	private Case[][] zone_de_deplacement;
+	private int nb_deplacement_fantome;
 	
 	public Fantome()
 	{
@@ -11,12 +12,42 @@ public class Fantome extends Personnage {
 	}
 
 	//------------------------------------------------------------------------------------------------------------------
+	//GET and SET 
+	//------------------------------------------------------------------------------------------------------------------
+	public Case[][] getZone_de_deplacement() {
+		return zone_de_deplacement;
+	}
+
+	public void setZone_de_deplacement(Case[][] zone_de_deplacement) {
+		this.zone_de_deplacement = zone_de_deplacement;
+	}
+	
+	public int getNb_deplacement_fantome() {
+		return nb_deplacement_fantome;
+	}
+
+	public void setNb_deplacement_fantome(int nb_deplacement_fantome) {
+		this.nb_deplacement_fantome = nb_deplacement_fantome;
+	}
+	
+	//Mise à jour du nombre de déplacement du fantôme
+	public void majNbDeplacement(Case futur_case)
+	{
+		int pos_x = this.getPosition().getX();
+		int pos_y = this.getPosition().getY();
+		int futur_pos_x = futur_case.getX();
+		int futur_pos_y = futur_case.getY();
+		int new_deplacement = this.getNb_deplacement_fantome() - ( Math.abs(futur_pos_x - pos_x) + Math.abs(futur_pos_y - pos_y) );
+		this.setNb_deplacement_fantome(new_deplacement);
+	}
+	
+	//------------------------------------------------------------------------------------------------------------------
 	//Zone de déplacement du fantôme
 	//------------------------------------------------------------------------------------------------------------------
 	//TODO: zoneDeplacement
 	public  void zoneDeplacement()
 	{
-		int score = de.lancerDe();
+		this.setNb_deplacement_fantome( de.lancerDe() );
 		this.initZoneDeplacement();
 		
 		//Coordonées du centre de la zone de déplacement du fantôme
@@ -29,12 +60,12 @@ public class Fantome extends Personnage {
 		
 		this.deplacementScore1(x_centre, y_centre, pos_x_fantome, pos_y_fantome);
 		
-		if (score >= 2 )
+		if (getNb_deplacement_fantome() >= 2 )
 		{
 			this.deplacementScore2(x_centre, y_centre, pos_x_fantome, pos_y_fantome);
 		}
 		
-		if (score == 3)
+		if (getNb_deplacement_fantome() == 3)
 		{
 			this.deplacementScore3(x_centre, y_centre, pos_x_fantome, pos_y_fantome);
 		}	
@@ -127,6 +158,45 @@ public class Fantome extends Personnage {
 		if (pos_y - 3 >= 0) this.zone_de_deplacement[x][y - 3] = Systeme.getGrille()[pos_x][pos_y - 3];
 	}
 
+	//------------------------------------------------------------------------------------------------------------------
+	//Recherche d'un moussaillon dans la zone de déplacement
+	//------------------------------------------------------------------------------------------------------------------
+	public void rechercheMoussaillon()
+	{
+		//Parcourt de la zone de déplacement du fantôme
+		int i = 0;
+		int j = 0;
+		Moussaillon moussaillon_victime = null;
+		//Tant que l'on n'a pas trouvé de moussaillon on parcourt la zone de déplacement
+		while((i < 7) && (moussaillon_victime == null))
+		{
+			while((j < 7) && (moussaillon_victime == null))
+			{
+				//On ne s'interresse que au cases "pleines" du tableau et celles ou n'est pas le fantôme
+				if ((this.zone_de_deplacement[i][j] != null) && (this.zone_de_deplacement[i][j] != this.getPosition()) )
+				{
+					moussaillon_victime = this.zone_de_deplacement[i][j].moussaillonPresent();
+					//Si un moussaillon est présent sur la case
+					if (moussaillon_victime != null)
+					{
+						this.majNbDeplacement(moussaillon_victime.getPosition());
+						moussaillon_victime.poursuit();
+					}
+				}
+				j++;
+			}
+			i++;
+		}
+		//TODO: si  il lui reste un deplacement possible il l'effectue
+		if(this.getNb_deplacement_fantome() > 0) this.seDeplaceAleatoirement();
+		}
+
+	private void seDeplaceAleatoirement() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	
 }
+
