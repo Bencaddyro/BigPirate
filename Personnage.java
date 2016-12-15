@@ -12,17 +12,7 @@ public class Personnage extends Observable {
 	protected Boolean vivant = true;
 	Set<Observer> observers = new HashSet<Observer>();
 	
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int i){
-		this.score=i;
-	}
-	
-	public String getPath() {
-		return path;
-	}
-	
+
 	public void aToiDeJouer(){
 		notifyObservers();
 	}
@@ -70,6 +60,17 @@ public class Personnage extends Observable {
 
 	public boolean estValide(Case new_case) {
 		return true;
+	}
+	
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int i){
+		this.score=i;
+	}
+	
+	public String getPath() {
+		return path;
 	}
 
 }
