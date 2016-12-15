@@ -14,47 +14,65 @@ import javax.swing.JPanel;
 
 public class IHM extends JFrame{
 	static int n=12;
-	
-	JPanel menu=new JPanel(new CardLayout());
-	JPanel carte;
-	String MENUMOUSSAILLON1="Menu Moussaillon 1";
-	String MENUMOUSSAILLON2="Menu Moussaillon 2";
-	String MENUMOUSSAILLON3="Menu Moussaillon 3";
-	String MENUPIRATE="Menu Pirate";
-	String MENUFANTOME="Menu Fantome";
-	
+	final JPanel menu=new JPanel(new CardLayout());
+	final static String MENUMOUSSAILLON1="Menu Moussaillon 1";
+	final static String MENUMOUSSAILLON2="Menu Moussaillon 2";
+	final static String MENUMOUSSAILLON3="Menu Moussaillon 3";
+	final static String MENUPIRATE="Menu Pirate";
+	final static String MENUFANTOME="Menu Fantome";
 	JPanel machin;
+	Systeme syst;
 	
-	public IHM(){
+	public IHM(final Systeme syst){
 
 		super("BigPirate");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(800,800));
 		this.setLayout(new BorderLayout());
+		this.syst=syst;
 		
-		//interface visualisation plateau
-		carte=new Carte(Systeme.getSystem());
-		this.getContentPane().add(carte,BorderLayout.CENTER);
+		machin=new Carte(syst);
+		
+		
+		this.getContentPane().add(machin,BorderLayout.CENTER);
 				
 		
+		JPanel bottom=new JPanel(new BorderLayout());
+		JPanel direction =new JPanel(new BorderLayout());
+		final JPanel de=new JPanel(new BorderLayout());
+		JButton finDuTour=new JButton("Fin du tour");
+		
 		//Déclaration des vues/menus
-		VueMoussaillon menuMoussaillon1=new VueMoussaillon("Moussaillon1");
-		VueMoussaillon menuMoussaillon2=new VueMoussaillon("Moussaillon2");
-		VueMoussaillon menuMoussaillon3=new VueMoussaillon("Moussaillon3");
+		vueMoussaillon menuMoussaillon1=new vueMoussaillon("Moussaillon1",syst);
+		vueMoussaillon menuMoussaillon2=new vueMoussaillon("Moussaillon2",syst);
+		vueMoussaillon menuMoussaillon3=new vueMoussaillon("Moussaillon3",syst);
 		
-		Systeme.getSystem().getCollection_personnage()[2].registerObserver(menuMoussaillon1);
-		Systeme.getSystem().getCollection_personnage()[3].registerObserver(menuMoussaillon2);
-		Systeme.getSystem().getCollection_personnage()[4].registerObserver(menuMoussaillon3);
+		syst.getCollection_personnage()[2].registerObserver(menuMoussaillon1);
+		syst.getCollection_personnage()[3].registerObserver(menuMoussaillon2);
+		syst.getCollection_personnage()[4].registerObserver(menuMoussaillon3);
 		
-		VuePirate menuPirate=new VuePirate();
-		VueFantome menuFantome=new VueFantome();
-		
-		Systeme.getSystem().getCollection_personnage()[0].registerObserver(menuPirate);
-		Systeme.getSystem().getCollection_personnage()[1].registerObserver(menuFantome);
+		JPanel menuPirate=new JPanel();
+		JPanel menuFantome=new JPanel();
 		
 		
-		//interface commande des joueurs
+		JLabel text =new JLabel("Menu info & kotopo kotopo");
+
+
+		JButton lancerDe=new JButton("Lance le dé!");
+		de.add(lancerDe,BorderLayout.NORTH);
 		
+		JPanel traitementDe=new JPanel(new BorderLayout());
+		
+		final JLabel resultDe=new JLabel("En attente du résultat");
+		final JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
+		
+		traitementDe.add(resultDe,BorderLayout.NORTH);
+		traitementDe.add(nbDeplacementRestant,BorderLayout.CENTER);
+		
+		de.add(traitementDe,BorderLayout.CENTER);
+		
+		menuPirate.add(new JLabel("Menu Pirate"));
+		menuFantome.add(new JLabel("Menu Fantome"));
 		
 		menu.add(menuMoussaillon1, MENUMOUSSAILLON1);
 		menu.add(menuMoussaillon2, MENUMOUSSAILLON2);
@@ -62,9 +80,84 @@ public class IHM extends JFrame{
 		menu.add(menuPirate, MENUPIRATE);
 		menu.add(menuFantome, MENUFANTOME);
 		
+		JButton haut=new JButton("Haut"),bas=new JButton("Bas"),droite=new JButton("Droite"),gauche=new JButton("Gauche");
 		
+		direction.add(droite, BorderLayout.EAST);
+		direction.add(gauche, BorderLayout.WEST);
+		direction.add(bas, BorderLayout.SOUTH);
+		direction.add(haut, BorderLayout.NORTH);
 		
-		this.getContentPane().add(menu,BorderLayout.SOUTH);		
+		bottom.add(direction, BorderLayout.WEST);
+		bottom.add(menu, BorderLayout.EAST);
+		bottom.add(de,BorderLayout.CENTER);
+		bottom.add(finDuTour,BorderLayout.SOUTH);
+		
+		gauche.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				//((CardLayout) menu.getLayout()).next(menu);
+	    				syst.deplacement("gauche");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
+	    			}
+	    		}		
+	    	);
+		droite.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				//CardLayout cl = (CardLayout)(menu.getLayout());
+	    				//cl.first(menu);
+	    				syst.deplacement("droite");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
+	    			}
+	    		}		
+	    	);
+		bas.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				syst.deplacement("bas");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
+	    				
+	    			}
+	    		}		
+	    	);
+
+		haut.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				syst.deplacement("haut");
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
+	    				
+	    			}
+	    		}		
+	    	);
+		lancerDe.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				syst.lancerDe();
+	    				resultDe.setText(""+syst.getPersonnageCourant().getScore());
+	    				nbDeplacementRestant.setText(syst.getNbDeplacementRestant()+" déplacements restants");
+	    			}
+	    		}		
+	    	);
+
+		finDuTour.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				//fonction de deplacement
+	    				System.out.println("Fin du tour de " + syst.getPersonnageCourant().toString());
+	    				syst.finDeTour();
+	    			}
+	    		}		
+	    	);
+		
+
+		
+		this.getContentPane().add(bottom,BorderLayout.SOUTH);		
 		this.setVisible(true);
 	}
 	
@@ -74,7 +167,7 @@ public class IHM extends JFrame{
 
 	public void maj(){
 		this.remove(machin);
-		machin=new Carte(Systeme.getSystem());
+		machin=new Carte(syst);
 		this.getContentPane().add(machin,BorderLayout.CENTER);
 		this.validate();
 		System.out.println("Maj IHM");
