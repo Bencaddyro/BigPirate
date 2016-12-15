@@ -1,9 +1,16 @@
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
 
-public class Personnage {
+
+public class Personnage extends Observable {
 	private Case position;
 	protected Des de; 
 	protected String path;
 	private int score;
+	protected Boolean vivant = true;
+	Set<Observer> observers = new HashSet<Observer>();
 	
 	public int getScore() {
 		return score;
@@ -16,8 +23,20 @@ public class Personnage {
 		return path;
 	}
 	
-	public void aToiDeJouer(){}
+	public void aToiDeJouer(){
+		notifyObservers();
+	}
 
+	
+	public void notifyObservers(){
+		for (Observer o: this.observers){
+			o.update(this,this);
+		}
+		System.out.println("ON notify !");
+	}
+	public void registerObserver(Observer obs){
+		observers.add(obs);
+	}
 
 	//Bouge
 	public void bouge(Case new_case)
@@ -34,6 +53,10 @@ public class Personnage {
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	//GETTER and SETTER
 	//----------------------------------------------------------------------------------------------------------------------------------------
+	public Boolean isVivant(){
+		return vivant;
+	}
+	
 	public Case getPosition() {
 		return position;
 	}

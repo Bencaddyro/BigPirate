@@ -10,6 +10,7 @@ public class Moussaillon extends Personnage {
 	private static int[][] tab={{5,4,3},{3,2,1}};
 	private Case historique;
 	private Boolean perroquet;
+	private Tresor myTresor;
 	
 	public Moussaillon(Integer nbMoussaillon){
 			
@@ -25,9 +26,32 @@ public class Moussaillon extends Personnage {
 		this.de=new Des3();
 	}
 	
+	
+	
+	//GETTER & SETTER
+	
+	public Tresor getMyTresor() {
+		return myTresor;
+	}
+	public AbstractCollection<Cocotier> getCollectionCocotier() {
+		return collectionCocotier;
+	}
+	public AbstractCollection<Perroquet> getCollectionPerroquet() {
+		return collectionPerroquet;
+	}
+	
+	
+	
+	
 	public void bouge(Case new_case){
 		historique=this.getPosition();
 		super.bouge(new_case);
+		if(this.getPosition().inventaire.size()!=0){
+			System.out.println("Prise du trésor !");
+			this.myTresor=this.getPosition().inventaire.iterator().next();
+			this.getPosition().inventaire.remove(this.myTresor);
+		}
+		notifyObservers();
 	}
 	
 	
@@ -42,15 +66,20 @@ public class Moussaillon extends Personnage {
 		else{
 			setScore(this.de.lancerDe());
 		}
+		notifyObservers();
 	}
 	
 	public void aToiDeJouer(){
+		super.aToiDeJouer();
 		perroquet=false;
 		historique=null;		
 	}
 	
 	public void meurs(){
 		this.getPosition().removePersonnage(this);
+		this.lacherTresor();
+		this.vivant=false;
+		notifyObservers();
 	}
 	
 	public void cartePerroquet(){
@@ -61,6 +90,7 @@ public class Moussaillon extends Personnage {
 			collectionPerroquet.remove(collectionPerroquet.iterator().next());
 			perroquet=true;
 		}
+		notifyObservers();
 	}
 	
 	public void carteCocotier(){
@@ -76,6 +106,7 @@ public class Moussaillon extends Personnage {
 		else{
 			System.out.println("Invalid push button Cocotier, t'es pas sur une case malfrat !");
 		}
+		notifyObservers();
 	}
 
 
@@ -90,7 +121,23 @@ public class Moussaillon extends Personnage {
 		else{
 			System.out.println("wrong use of entrer cocotier , t'es pas sur un ext cocotier");
 		}
+		notifyObservers();
 		
+	}
+
+
+
+	public void poursuit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void lacherTresor() {
+		if(this.myTresor!=null){
+			this.getPosition().getInventaire().add(this.myTresor);
+		}
+		this.myTresor=null;
+		notifyObservers();
 	}
 
 

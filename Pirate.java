@@ -30,6 +30,7 @@ public class Pirate extends Personnage {
 		//Interactions
 		
 		Iterator<Personnage> itPerso = getPosition().getEquipage().iterator();
+		System.out.println("nb perso sur la case : "+this.getPosition().getEquipage().size());
 		for(int i=0;i<getPosition().getEquipage().size();i++){
 			Personnage mecSurLaCase=itPerso.next();
 			if (mecSurLaCase instanceof Moussaillon){
@@ -40,7 +41,8 @@ public class Pirate extends Personnage {
 		}
 
 		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
-		for(int i=0;i<getPosition().getInventaire().size();i++){
+		System.out.println("nb trésor sur la case : "+this.getPosition().getInventaire().size());
+		for(int i=0;i<this.getPosition().getInventaire().size();i++){
 			Tresor tresorSurLaCase=getPosition().getInventaire().iterator().next();
 			tresorSurLaCase.retourGrotte();
 			System.out.println("Trésor " + tresorSurLaCase.toString() + " attrappé !");
