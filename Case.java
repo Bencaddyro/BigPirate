@@ -1,15 +1,21 @@
 import java.util.AbstractCollection;
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
+
+import javax.swing.JPanel;
 
 
 
-public abstract class Case {
+public abstract class Case extends Observable {
 
 	protected String path;
 	protected Integer x;
 	protected Integer y;
 	protected AbstractCollection<Tresor> inventaire;
 	protected AbstractCollection<Personnage> equipage;
+	Set<Observer> observers = new HashSet<Observer>();
 	
 	Case(Integer _x, Integer _y){
 		x=_x;
@@ -42,6 +48,9 @@ public abstract class Case {
 	public Boolean cocotierExt(){
 		return false;
 	}
+	public Boolean barque(){
+		return false;
+	}
 	public Tresor tresorPresent(){
 		if(inventaire.isEmpty()){
 			return null;
@@ -59,24 +68,50 @@ public abstract class Case {
 		}
 	}
 	public void addPersonnage(Personnage p){
+		System.out.println("On ajoute un perso");
 		equipage.add(p);
+		System.out.println("On notify qu'on ajoute un perso");
+		notifyObservers();
 	}
 	public void addTresor(Tresor t){
 		inventaire.add(t);
+		notifyObservers();
 	}
 	public void removePersonnage(Personnage p){
+		System.out.println("On delete un perso");
 		equipage.remove(p);
+		System.out.println("On notify du delete de perso");
+		notifyObservers();
 	}
 	public void removeTresor(Tresor t){
 		inventaire.remove(t);
+		notifyObservers();
 	}
 	public Moussaillon moussaillonPresent() {
 		Personnage perso = this.personnagePresent();
-		if (perso.getClass() == Moussaillon.class)
+		System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + perso);
+		if (perso != null)
 		{
-			return (Moussaillon) perso;
+			System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ");
+			if (perso.getClass() == Moussaillon.class)
+			{
+				System.out.println("Je suis LA!!!!!!!!!!!!! ");
+				return (Moussaillon) perso;
+			}
 		}
 		return null;
+	}
+	
+	
+	
+	public void notifyObservers(){
+		for (Observer o: this.observers){
+			o.update(this,this);
+		}
+		System.out.println("case notify a IHM");
+	}
+	public void registerObserver(Observer obs){
+		observers.add(obs);
 	}
 	
 }
