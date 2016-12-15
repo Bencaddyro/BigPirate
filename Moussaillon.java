@@ -128,7 +128,7 @@ public class Moussaillon extends Personnage {
 
 
 	public void poursuit() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -138,6 +138,16 @@ public class Moussaillon extends Personnage {
 		}
 		this.myTresor=null;
 		notifyObservers();
+	}
+
+
+
+	public void bouh() {
+		System.out.println("bouh !");
+		if(myTresor!=null){
+			myTresor.teleportation();
+		}
+		myTresor=null;		
 	}
 
 
