@@ -20,4 +20,5 @@ public class CocotierInter extends Case {
 	public Boolean cocotierInter(){
 		return true;
 	}
+
 }

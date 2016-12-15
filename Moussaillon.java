@@ -46,7 +46,7 @@ public class Moussaillon extends Personnage {
 	public void bouge(Case new_case){
 		historique=this.getPosition();
 		super.bouge(new_case);
-		if(this.getPosition().inventaire.size()!=0){
+		if(this.getPosition().inventaire.size()!=0 && myTresor==null){
 			System.out.println("Prise du trésor !");
 			this.myTresor=this.getPosition().inventaire.iterator().next();
 			this.getPosition().inventaire.remove(this.myTresor);
@@ -56,7 +56,11 @@ public class Moussaillon extends Personnage {
 	
 	
 	public boolean estValide(Case new_case){
-		return	!(new_case==historique);
+		if(getPosition().cocotierInter()){
+			return (new_case==((CocotierInter)getPosition()).getExtCoco());
+		}else{
+			return	!(new_case==historique);
+		}
 	}
 	
 	public void lancerDe() {

@@ -4,7 +4,7 @@ public class Tresor {
 	private String path = "src/tresor.png";
 	
 	public void retourGrotte(){
-		
+		Systeme.getSystem().getGrille()[4][8].addTresor(this);
 	}
 
 	public String getPath() {

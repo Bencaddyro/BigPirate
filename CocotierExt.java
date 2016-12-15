@@ -1,7 +1,7 @@
 
 public class CocotierExt extends Case {
 
-	Case coco;
+	private Case coco;
 	
 	CocotierExt(Integer _x, Integer _y,Case _coco) {
 		super(_x, _y);
