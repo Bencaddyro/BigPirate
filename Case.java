@@ -73,5 +73,13 @@ public abstract class Case {
 	public void removeTresor(Tresor t){
 		inventaire.remove(t);
 	}
+	public Moussaillon moussaillonPresent() {
+		Personnage perso = this.personnagePresent();
+		if (perso.getClass() == Moussaillon.class)
+		{
+			return (Moussaillon) perso;
+		}
+		return null;
+	}
 	
 }
