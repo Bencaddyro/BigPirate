@@ -87,7 +87,7 @@ public class VueMoussaillon extends VueJoueur {
 	}
 	public void update(Observable arg0, Object arg1) {
 		super.update(arg0,arg1);
-		System.out.println("Je me fait notifier !");
+		//System.out.println("Je me fait notifier !");
 		nbCocotier.setText(""+((Moussaillon)arg0).getCollectionCocotier().size());
 		nbPerroquet.setText(""+((Moussaillon)arg0).getCollectionPerroquet().size());
 		if(((Moussaillon)arg0).getMyTresor()==null){
