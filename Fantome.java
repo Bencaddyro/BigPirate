@@ -1,5 +1,4 @@
 
-
 public class Fantome extends Personnage {
 	private Case[][] zone_de_deplacement;
 	private int nb_deplacement_fantome;
@@ -52,11 +51,17 @@ public class Fantome extends Personnage {
 	//------------------------------------------------------------------------------------------------------------------
 	public void majNbDeplacement(Case futur_case)
 	{
+		System.out.println(this.getNb_deplacement_fantome());
 		int pos_x = this.getPosition().getX();
+		System.out.println("posx : " + pos_x );
 		int pos_y = this.getPosition().getY();
+		System.out.println("posy : " + pos_y );
 		int futur_pos_x = futur_case.getX();
+		System.out.println("newposx : " + futur_pos_x );
 		int futur_pos_y = futur_case.getY();
+		System.out.println("newposy : " + futur_pos_y);
 		int new_deplacement = this.getNb_deplacement_fantome() - ( Math.abs(futur_pos_x - pos_x) + Math.abs(futur_pos_y - pos_y) );
+		System.out.println("nbdep : " + new_deplacement );
 		this.setNb_deplacement_fantome(new_deplacement);
 	}
 	
@@ -127,68 +132,68 @@ public class Fantome extends Personnage {
 	//Déplacement pour un score de dé de 1
 	public void deplacementScore1(int x, int y, int pos_x, int pos_y)
 	{
-		if (pos_x - 1 >= 0) this.zone_de_deplacement[x - 1][y] = Systeme.getGrille()[pos_x - 1][pos_y];
-		if (pos_x + 1 <= 11) this.zone_de_deplacement[x + 1][y] = Systeme.getGrille()[pos_x + 1][pos_y];
-		if (pos_y + 1 <= 11) this.zone_de_deplacement[x][y + 1] = Systeme.getGrille()[pos_x][pos_y + 1];
-		if (pos_y - 1 >= 0) this.zone_de_deplacement[x][y - 1] = Systeme.getGrille()[pos_x][pos_y - 1];	
+		if (pos_x - 1 >= 0) this.zone_de_deplacement[x - 1][y] = Systeme.getSystem().getGrille()[pos_x - 1][pos_y];
+		if (pos_x + 1 <= 11) this.zone_de_deplacement[x + 1][y] = Systeme.getSystem().getGrille()[pos_x + 1][pos_y];
+		if (pos_y + 1 <= 11) this.zone_de_deplacement[x][y + 1] = Systeme.getSystem().getGrille()[pos_x][pos_y + 1];
+		if (pos_y - 1 >= 0) this.zone_de_deplacement[x][y - 1] = Systeme.getSystem().getGrille()[pos_x][pos_y - 1];	
 	}
 	
 	
 	//Déplacement pour un score de dé de 2 (doit être ajouté au déplacement pour un score de dé de 1)
 	public void deplacementScore2(int x, int y, int pos_x, int pos_y)
 	{
-		if (pos_x - 2 >= 0) this.zone_de_deplacement[x - 2][y] = Systeme.getGrille()[pos_x - 2][pos_y];
-		if (pos_x + 2 <= 11) this.zone_de_deplacement[x + 2][y] = Systeme.getGrille()[pos_x + 2][pos_y];
+		if (pos_x - 2 >= 0) this.zone_de_deplacement[x - 2][y] = Systeme.getSystem().getGrille()[pos_x - 2][pos_y];
+		if (pos_x + 2 <= 11) this.zone_de_deplacement[x + 2][y] = Systeme.getSystem().getGrille()[pos_x + 2][pos_y];
 		
 		if (pos_x - 1 >= 0)
 		{
-			if (pos_y + 1 <= 11) this.zone_de_deplacement[x - 1][y + 1] = Systeme.getGrille()[pos_x - 1][pos_y + 1];
-			if (pos_y - 1 >= 0) this.zone_de_deplacement[x - 1][y - 1] = Systeme.getGrille()[pos_x - 1][pos_y - 1];
+			if (pos_y + 1 <= 11) this.zone_de_deplacement[x - 1][y + 1] = Systeme.getSystem().getGrille()[pos_x - 1][pos_y + 1];
+			if (pos_y - 1 >= 0) this.zone_de_deplacement[x - 1][y - 1] = Systeme.getSystem().getGrille()[pos_x - 1][pos_y - 1];
 		}
 		
 		if (pos_x + 1 <= 11)
 		{
-			if (pos_y + 1 <= 11) this.zone_de_deplacement[x + 1][y + 1] = Systeme.getGrille()[pos_x + 1][pos_y + 1];
-			if (pos_y - 1 >= 0) this.zone_de_deplacement[x + 1][y - 1] = Systeme.getGrille()[pos_x + 1][pos_y - 1];
+			if (pos_y + 1 <= 11) this.zone_de_deplacement[x + 1][y + 1] = Systeme.getSystem().getGrille()[pos_x + 1][pos_y + 1];
+			if (pos_y - 1 >= 0) this.zone_de_deplacement[x + 1][y - 1] = Systeme.getSystem().getGrille()[pos_x + 1][pos_y - 1];
 		}
 		
-		if (pos_y - 2 >= 0) this.zone_de_deplacement[x][y - 2] = Systeme.getGrille()[pos_x][pos_y - 2];
-		if (pos_y + 2 <= 11)this.zone_de_deplacement[x][y + 2] = Systeme.getGrille()[pos_x][pos_y + 2];
+		if (pos_y - 2 >= 0) this.zone_de_deplacement[x][y - 2] = Systeme.getSystem().getGrille()[pos_x][pos_y - 2];
+		if (pos_y + 2 <= 11)this.zone_de_deplacement[x][y + 2] = Systeme.getSystem().getGrille()[pos_x][pos_y + 2];
 	}
 	
 	
 	//Déplacement pour un score de dé de 3 (doit être ajouté au déplacement pour un score de dé de 1 et de 2)
 	public void deplacementScore3(int x, int y, int pos_x, int pos_y)
 	{
-		if (pos_x - 3 >= 0) this.zone_de_deplacement[x - 3][y] = Systeme.getGrille()[pos_x - 3][pos_y];
-		if (pos_x + 3 <= 11) this.zone_de_deplacement[x + 3][y] = Systeme.getGrille()[pos_x + 3][pos_y];
+		if (pos_x - 3 >= 0) this.zone_de_deplacement[x - 3][y] = Systeme.getSystem().getGrille()[pos_x - 3][pos_y];
+		if (pos_x + 3 <= 11) this.zone_de_deplacement[x + 3][y] = Systeme.getSystem().getGrille()[pos_x + 3][pos_y];
 		
 		if (pos_x - 2 >= 0)
 		{
-			if (pos_y + 1 <= 11) this.zone_de_deplacement[x - 2][y + 1] = Systeme.getGrille()[pos_x - 2][pos_y + 1];
-			if (pos_y - 1 >= 0) this.zone_de_deplacement[x - 2][y - 1] = Systeme.getGrille()[pos_x - 2][pos_y - 1];
+			if (pos_y + 1 <= 11) this.zone_de_deplacement[x - 2][y + 1] = Systeme.getSystem().getGrille()[pos_x - 2][pos_y + 1];
+			if (pos_y - 1 >= 0) this.zone_de_deplacement[x - 2][y - 1] = Systeme.getSystem().getGrille()[pos_x - 2][pos_y - 1];
 		}
 		
 		if (pos_x + 2 <= 11)
 		{
-			if (pos_y + 1 <= 11) this.zone_de_deplacement[x + 2][y + 1] = Systeme.getGrille()[pos_x + 2][pos_y + 1];
-			if (pos_y - 1 >= 0) this.zone_de_deplacement[x + 2][y - 1] = Systeme.getGrille()[pos_x + 2][pos_y - 1];
+			if (pos_y + 1 <= 11) this.zone_de_deplacement[x + 2][y + 1] = Systeme.getSystem().getGrille()[pos_x + 2][pos_y + 1];
+			if (pos_y - 1 >= 0) this.zone_de_deplacement[x + 2][y - 1] = Systeme.getSystem().getGrille()[pos_x + 2][pos_y - 1];
 		}
 		
 		if (pos_x - 1 >= 0)
 		{
-			if (pos_y + 2 <= 11) this.zone_de_deplacement[x - 1][y + 2] = Systeme.getGrille()[pos_x - 1][pos_y + 2];
-			if (pos_y - 2 >= 0) this.zone_de_deplacement[x - 1][y - 2] = Systeme.getGrille()[pos_x - 1][pos_y - 2];
+			if (pos_y + 2 <= 11) this.zone_de_deplacement[x - 1][y + 2] = Systeme.getSystem().getGrille()[pos_x - 1][pos_y + 2];
+			if (pos_y - 2 >= 0) this.zone_de_deplacement[x - 1][y - 2] = Systeme.getSystem().getGrille()[pos_x - 1][pos_y - 2];
 		}
 		
 		if (pos_x + 1 <= 11)
 		{
-			if (pos_y + 2 <= 11) this.zone_de_deplacement[x + 1][y + 2] = Systeme.getGrille()[pos_x + 1][pos_y + 2];
-			if (pos_y - 2 >= 0) this.zone_de_deplacement[x + 1][y - 2] = Systeme.getGrille()[pos_x + 1][pos_y - 2];
+			if (pos_y + 2 <= 11) this.zone_de_deplacement[x + 1][y + 2] = Systeme.getSystem().getGrille()[pos_x + 1][pos_y + 2];
+			if (pos_y - 2 >= 0) this.zone_de_deplacement[x + 1][y - 2] = Systeme.getSystem().getGrille()[pos_x + 1][pos_y - 2];
 		}
 
-		if (pos_y + 3 <= 11)this.zone_de_deplacement[x][y + 3] = Systeme.getGrille()[pos_x][pos_y + 3];
-		if (pos_y - 3 >= 0) this.zone_de_deplacement[x][y - 3] = Systeme.getGrille()[pos_x][pos_y - 3];
+		if (pos_y + 3 <= 11)this.zone_de_deplacement[x][y + 3] = Systeme.getSystem().getGrille()[pos_x][pos_y + 3];
+		if (pos_y - 3 >= 0) this.zone_de_deplacement[x][y - 3] = Systeme.getSystem().getGrille()[pos_x][pos_y - 3];
 	}
 
 	//------------------------------------------------------------------------------------------------------------------
@@ -212,8 +217,11 @@ public class Fantome extends Personnage {
 					//Si un moussaillon est présent sur la case
 					if (moussaillon_victime != null)
 					{
+						System.out.println("Moussaillon trouvé");
 						this.majNbDeplacement(moussaillon_victime.getPosition());
 						this.bouge(moussaillon_victime.getPosition());
+						//on ne permet pas au fantôme de revenir sur ses pas 
+						this.zone_de_deplacement[this.getPosition_dans_la_zone_x()][this.getPosition_dans_la_zone_y()] = null;
 						moussaillon_victime.bouh();
 					}
 				}
@@ -231,21 +239,34 @@ public class Fantome extends Personnage {
 	private void seDeplaceAleatoirement() {
 		int pos_x = this.getPosition_dans_la_zone_x();
 		int pos_y = this.getPosition_dans_la_zone_y();
+		
 		//Génération d'une position aléatoire dans la zone de déplacement autorisé
-		int random_x = (int)(Math.random()*2) - 1 ;
-		int random_y = (int)(Math.random()*2) - 1 ;
-		//while ((this.getNb_deplacement_fantome() > 0) || (this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] == this.getPosition()))
+		int random_x;
+		int random_y;
+		boolean meme_position;	
+		boolean deplacement1case;
+		System.out.println(this.getScore());
+		do
 		{
-			//while(this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] == null)
+			do
 			{
-				//random_x = (int)(Math.random())  ;
-				//random_y = (int)(Math.random())  ;
-			}
+				random_x = (int)(Math.random()*2) - 1 ;
+				random_y = (int)(Math.random()*2) - 1 ;
+				meme_position = (this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] == this.getPosition());
+				//On vériffie que le fantôme ne se déplace que de une case
+				deplacement1case = ((random_x == 1 && random_y == 1) || (random_x == -1 && random_y == -1) || (random_x == 1 && random_y == -1) ||(random_x == -1 && random_y == 1));
+			} while( (this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] == null) || ( meme_position )  || ( deplacement1case));
+			
 			//Mise à jour du nombre déplacement restant
 			this.majNbDeplacement(this.zone_de_deplacement[pos_x + random_x][pos_y + random_y]);	
 			//Déplacement d'une case
 			this.bouge(this.zone_de_deplacement[pos_x + random_x][pos_y + random_y]);
-		}
+			System.out.println(this.getScore());
+			//On ne permet pas au fantôme de revenir sur ses pas
+			this.zone_de_deplacement[pos_x][pos_y] = null;
+			this.setPosition_dans_la_zone_x(pos_x + random_x);
+			this.setPosition_dans_la_zone_y(pos_y + random_y);
+		}while (this.getNb_deplacement_fantome() > 0); 
 	}
 
 
