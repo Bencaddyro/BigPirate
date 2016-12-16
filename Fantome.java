@@ -202,17 +202,15 @@ public class Fantome extends Personnage {
 	public void rechercheMoussaillon()
 	{
 		//Parcourt de la zone de déplacement du fantôme
-		int i = 0;
-		int j = 0;
 		Moussaillon moussaillon_victime = null;
-		//Tant que l'on n'a pas trouvé de moussaillon on parcourt la zone de déplacement
-		while((i < 7) && (moussaillon_victime == null))
-		{
-			while((j < 7) && (moussaillon_victime == null))
-			{
+		//Recherche de moussaillon
+		for(int i=0;i<7;i++){
+			for(int j=0;j<7;j++){
+				System.out.println("recherche en "+i+" "+j+" victime "+moussaillon_victime );
 				//On ne s'interresse que au cases "pleines" du tableau et celles ou n'est pas le fantôme
 				if ((this.zone_de_deplacement[i][j] != null) && (this.zone_de_deplacement[i][j] != this.getPosition()) )
 				{
+					System.out.println("recherche en "+i+" "+j );
 					moussaillon_victime = this.zone_de_deplacement[i][j].moussaillonPresent();
 					//Si un moussaillon est présent sur la case
 					if (moussaillon_victime != null)
@@ -225,9 +223,7 @@ public class Fantome extends Personnage {
 						moussaillon_victime.bouh();
 					}
 				}
-				j++;
 			}
-			i++;
 		}
 		//TODO: si  il lui reste un deplacement possible il l'effectue
 		if(this.getNb_deplacement_fantome() > 0) this.seDeplaceAleatoirement();
