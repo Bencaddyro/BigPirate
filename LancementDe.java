@@ -35,7 +35,7 @@ public class LancementDe extends JPanel implements Observer{
 	}
 		
 	public void update(Observable o, Object arg) {
-		resultDe.setText("Résulta du dé : "+((Personnage)o).getScore());
+		resultDe.setText("Résultat du dé : "+((Personnage)o).getScore());
 		nbDeplacementRestant.setText("Move dispo : "+((Personnage)o).getNbDeplacementRestant());
 		
 	}

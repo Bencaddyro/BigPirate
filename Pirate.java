@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 
@@ -7,6 +9,7 @@ import java.util.Set;
 public class Pirate extends Personnage {
 	
 	private Case historique;
+	private int nb_moussaillon_elimine=0;
 	
 	public Pirate(){
 		path="src/pirate.png";
@@ -26,6 +29,7 @@ public class Pirate extends Personnage {
 	public void bouge(Case new_case){
 		this.historique=getPosition();
 		super.bouge(new_case);
+		List<Moussaillon> arrayMoussaillon= new ArrayList<Moussaillon>();
 		
 		//Interactions
 		
@@ -34,12 +38,22 @@ public class Pirate extends Personnage {
 		for(int i=0;i<getPosition().getEquipage().size();i++){
 			Personnage mecSurLaCase=itPerso.next();
 			if (mecSurLaCase instanceof Moussaillon){
-				((Moussaillon) mecSurLaCase).meurs();
+				arrayMoussaillon.add((Moussaillon) mecSurLaCase);
 				System.out.println("Meurs " + mecSurLaCase.toString() + " !");
+				nb_moussaillon_elimine++;
+				
+				
 				
 			}
 		}
-
+		
+		for(int i=0;i<arrayMoussaillon.size();i++){
+			arrayMoussaillon.get(i).meurs();
+		}
+		
+		if(nb_moussaillon_elimine==Systeme.getSystem().getNb_moussaillon()){
+			Systeme.getSystem().gagne();
+		}
 		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
 		System.out.println("nb trésor sur la case : "+this.getPosition().getInventaire().size());
 		for(int i=0;i<this.getPosition().getInventaire().size();i++){
