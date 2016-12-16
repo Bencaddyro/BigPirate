@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 public class VueMoussaillon extends VueJoueur {
 
-	JPanel vueMoussaillon = new JPanel();
 	
 	JPanel entrerCocotier= new JPanel(new BorderLayout());
 	JButton eCocotier=new JButton("Entrer Cocotier");
@@ -31,28 +30,28 @@ public class VueMoussaillon extends VueJoueur {
 	
 	
 	
+	
 	public VueMoussaillon(Personnage m){
 		super(m);		
 	
 		m.registerObserver(this);
 		
-		this.add(vueMoussaillon,BorderLayout.EAST);
 		entrerCocotier.add(eCocotier,BorderLayout.NORTH);
-		vueMoussaillon.add(entrerCocotier);
+		this.add(entrerCocotier);
 				
 		carteCocotier.add(cCocotier,BorderLayout.NORTH);
 		carteCocotier.add(nbCocotier,BorderLayout.CENTER);
 		
-		vueMoussaillon.add(carteCocotier);
+		this.add(carteCocotier);
 				
 		cartePerroquet.add(cPerroquet,BorderLayout.NORTH);
 		cartePerroquet.add(nbPerroquet,BorderLayout.CENTER);
 		
-		vueMoussaillon.add(cartePerroquet);
+		this.add(cartePerroquet);
 		
 		tresor.add(lTresor,BorderLayout.NORTH);
 		tresor.add(inventaire,BorderLayout.CENTER);
-		vueMoussaillon.add(tresor);
+		this.add(tresor);
 		
 		eCocotier.addActionListener(
 	    		new ActionListener(){
@@ -94,7 +93,7 @@ public class VueMoussaillon extends VueJoueur {
 		if(((Moussaillon)arg0).getMyTresor()==null){
 			inventaire.setText("Tu n'as pas de trésor");
 		}else{
-			inventaire.setText("Tu a un trésor, vite au bato !");
+			inventaire.setText("Tu as un trésor, vite au bato !");
 		}
 		
 	}
