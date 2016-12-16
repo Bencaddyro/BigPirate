@@ -2,18 +2,18 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-
 public class VueCase extends JPanel implements Observer{
 
 	private BufferedImage image;
     private Case c;
-	
+
 	public VueCase(Case c){
 		super();
 		this.c=c;
@@ -41,19 +41,20 @@ public class VueCase extends JPanel implements Observer{
         	
 		
         if(!c.getEquipage().isEmpty()){
-        	BufferedImage imageEquipage=null;	
-    		try {
-                imageEquipage = ImageIO.read(new File(c.getEquipage().iterator().next().getPath()));
-            } catch (IOException ioe) {
-                System.out.println("Could not read in the pic");
-            }
-    		g.drawImage(imageEquipage,0,0,this);
+        	BufferedImage imageEquipage=null;
+        	Iterator<Personnage> it=c.getEquipage().iterator();
+        	for(int i=0;i<c.getEquipage().size();i++){        	
+	    		try {
+	                imageEquipage = ImageIO.read(new File(it.next().getPath()));
+	            } catch (IOException ioe) {
+	                System.out.println("Could not read in the pic");
+	            }
+	    		g.drawImage(imageEquipage,0,0,this);
+    		}
         }
     }
 
 	public void update(Observable o, Object arg) {
 		this.repaint();
 	}
-	
-	
 }

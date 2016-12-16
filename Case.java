@@ -60,10 +60,13 @@ public abstract class Case extends Observable {
 		}
 	}
 	public Personnage personnagePresent(){
+		System.out.println("Personnage présent ?");
 		if(equipage.isEmpty()){
+			System.out.println("ya pas");
 			return null;
 		}
 		else{
+			System.out.println("ya");
 			return equipage.iterator().next();
 		}
 	}
@@ -89,10 +92,10 @@ public abstract class Case extends Observable {
 	}
 	public Moussaillon moussaillonPresent() {
 		Personnage perso = this.personnagePresent();
-		System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU " + perso);
+		System.out.println("COUCOUUUUUUUUUUUU " + perso);
 		if (perso != null)
 		{
-			System.out.println("COUCOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ");
+			System.out.println("COUCOUUUUUUUUUUU ");
 			if (perso.getClass() == Moussaillon.class)
 			{
 				System.out.println("Je suis LA!!!!!!!!!!!!! ");

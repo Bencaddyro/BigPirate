@@ -40,9 +40,6 @@ public class IHM extends JFrame{
 		VueMoussaillon menuMoussaillon2=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[3]);
 		VueMoussaillon menuMoussaillon3=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[4]);
 		
-		//Systeme.getSystem().getCollection_personnage()[2].registerObserver(menuMoussaillon1);
-		//Systeme.getSystem().getCollection_personnage()[3].registerObserver(menuMoussaillon2);
-		//Systeme.getSystem().getCollection_personnage()[4].registerObserver(menuMoussaillon3);
 		
 		VuePirate menuPirate=new VuePirate(Systeme.getSystem().getCollection_personnage()[0]);
 		VueFantome menuFantome=new VueFantome(Systeme.getSystem().getCollection_personnage()[1]);
