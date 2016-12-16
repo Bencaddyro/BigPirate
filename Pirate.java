@@ -29,7 +29,9 @@ public class Pirate extends Personnage {
 	public void bouge(Case new_case){
 		this.historique=getPosition();
 		super.bouge(new_case);
+		Tresor tresorCourant;
 		List<Moussaillon> arrayMoussaillon= new ArrayList<Moussaillon>();
+		List<Tresor> arrayTresor= new ArrayList<Tresor>();
 		
 		//Interactions
 		
@@ -54,14 +56,19 @@ public class Pirate extends Personnage {
 		if(nb_moussaillon_elimine==Systeme.getSystem().getNb_moussaillon()){
 			Systeme.getSystem().gagne();
 		}
+		
 		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
 		System.out.println("nb trésor sur la case : "+this.getPosition().getInventaire().size());
 		for(int i=0;i<this.getPosition().getInventaire().size();i++){
 			Tresor tresorSurLaCase=itTresor.next();
-			getPosition().inventaire.remove(tresorSurLaCase);
-			tresorSurLaCase.retourGrotte();
-			System.out.println("Trésor " + tresorSurLaCase.toString() + " attrappé !");
-				
+			arrayTresor.add(tresorSurLaCase);
+		}
+
+		for(int i=0;i<arrayTresor.size();i++){
+			tresorCourant=arrayTresor.get(i);
+			getPosition().inventaire.remove(tresorCourant);
+			tresorCourant.retourGrotte();
+			System.out.println("Trésor " + tresorCourant.toString() + " attrappé !");
 		}
 	}
 }
