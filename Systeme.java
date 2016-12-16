@@ -2,10 +2,10 @@
 public class Systeme 
 {
 	private static Case[][] grille;
-	private Personnage[] collection_personnage;
-	private int nb_moussaillon = 3;
-	private int nb_perso = nb_moussaillon + 2;
-	private int suivant = 2; //indique à qui est le tour de jeu
+	private static Personnage[] collection_personnage;
+	private static int nb_moussaillon;
+	private static int nb_perso;
+	private static int suivant; //indique à qui est le tour de jeu
 	private IHM ihm;
 	private static Systeme instance=null;
 	
@@ -23,8 +23,14 @@ public class Systeme
 	
 	private Systeme()
 	{
-		
-		this.initGrille();
+		this.initGrille();	
+	}
+	
+	
+	public static void start(int nbperso){
+		nb_moussaillon= nbperso - 2 ;
+		nb_perso=nbperso;
+		suivant = 2; //indique à qui est le tour de jeu
 		
 		collection_personnage = new Personnage[nb_perso];
 		collection_personnage[0]=new Pirate();
@@ -35,14 +41,10 @@ public class Systeme
 			collection_personnage[2+i] = new Moussaillon(nb_moussaillon);
 		}
 		
-		this.miseEnPlace();
-		
-		//ihm=new IHM();
+		miseEnPlace();
 		
 		//Annonce que c'est au tour du premier moussaillon de jouer
-		collection_personnage[this.suivant].aToiDeJouer();
-		
-		
+		collection_personnage[suivant].aToiDeJouer();
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
@@ -146,7 +148,7 @@ public class Systeme
 	
 	
 	//Mise en place des personnages
-	public void miseEnPlace()
+	public static void miseEnPlace()
 	{
 		//Mise en place du pirate  
 		grille[4][8].addPersonnage(collection_personnage[0]);
@@ -155,7 +157,7 @@ public class Systeme
 		grille[10][10].addPersonnage(collection_personnage[1]);
 		collection_personnage[1].setPosition(grille[10][10]);
 		
-		for (int i = 0; i< this.nb_moussaillon; i++)
+		for (int i = 0; i< nb_moussaillon; i++)
 		{
 			//Ajout des trésorts dans la grotte 
 			grille[4][8].addTresor(new Tresor());
@@ -228,15 +230,7 @@ public class Systeme
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	public void deplacement(String direction)
 	{
-		if (getPersonnageCourant().getNbDeplacementRestant()==0){
-			if(getPersonnageCourant().getDelance()){
-				System.out.println("Plus de déplacement disponible\n");
-			}
-			else{
-				System.out.println("Lance le dé avant !\n");
-			}
-		}
-		else{
+		if (getPersonnageCourant().getNbDeplacementRestant() !=0){
 			// Case indiquant la position du personnage
 			Case position = getPersonnageCourant().getPosition();
 			int pos_x = position.getX();
@@ -256,7 +250,7 @@ public class Systeme
 			if (direction == "droite"){
 				new_case = Systeme.getGrille()[(pos_x+1)%12][pos_y];
 			}		
-			//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
+			//vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
 			if(new_case.estValide())
 			{
 				if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
@@ -279,17 +273,8 @@ public class Systeme
 	public static void main(String[] args)
 	{
 		Systeme systeme = Systeme.getSystem();
+		Systeme.start(5);
 		systeme.ihm=new IHM();
 		
 	}
-
-	public void gagne() {
-		System.out.println(this.getPersonnageCourant()+"gagne la partie");	
-	}
-
-
-
-
-
-	
 }
