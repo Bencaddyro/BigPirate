@@ -11,15 +11,10 @@ import javax.swing.JPanel;
 
 
 public abstract class VueJoueur extends JPanel implements Observer{
-
-
 	
 	CroixDirection croix = new CroixDirection();
 	LancementDe lancement = new LancementDe();
 	JButton finDuTour=new JButton("Fin du tour");
-
-
-	
 	
 	public VueJoueur(Personnage p) {
 		super(new BorderLayout());
@@ -40,10 +35,7 @@ public abstract class VueJoueur extends JPanel implements Observer{
 	    	);
 	}
 
-
 	public void update(Observable o, Object arg) {
-		
-		
 	}
 		
 }

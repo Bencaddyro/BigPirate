@@ -31,7 +31,6 @@ public class VueMoussaillon extends VueJoueur {
 	
 	
 	
-	
 	public VueMoussaillon(Personnage m){
 		super(m);		
 	

@@ -5,18 +5,9 @@ import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class VueFantome extends VueJoueur{
-
 	public VueFantome(Personnage p){
 		super(p);
 		this.add(new JLabel("Menu Fantome"),BorderLayout.EAST);
 	}
-	
-	
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

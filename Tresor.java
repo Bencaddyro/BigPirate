@@ -15,12 +15,11 @@ public class Tresor {
 		Case cible=null;
 		int i,j;
 		do{
-			i=(int)Math.random()*12;
-			j=(int)Math.random()*12;
+			i=(int)(Math.random()*12);
+			j=(int)(Math.random()*12);
 			cible=Systeme.getSystem().getGrille()[i][j];
-		}while(!cible.estValide());
+		}while(!(cible instanceof Chemin));
 		
 		cible.addTresor(this);
-		
 	}
 }
