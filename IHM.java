@@ -22,12 +22,13 @@ public class IHM extends JFrame{
 	String MENUMOUSSAILLON3="Menu Moussaillon 3";
 	String MENUPIRATE="Menu Pirate";
 	String MENUFANTOME="Menu Fantome";
+	String MENUPRINCIPAL="Menu Principal";
 	
 	public IHM(){
 
 		super("BigPirate");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(new Dimension(800,800));
+		this.setSize(new Dimension(1000,800));
 		this.setLayout(new BorderLayout());
 		
 		//interface visualisation plateau
@@ -40,9 +41,11 @@ public class IHM extends JFrame{
 		VueMoussaillon menuMoussaillon2=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[3]);
 		VueMoussaillon menuMoussaillon3=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[4]);
 		
+
 		
 		VuePirate menuPirate=new VuePirate(Systeme.getSystem().getCollection_personnage()[0]);
 		VueFantome menuFantome=new VueFantome(Systeme.getSystem().getCollection_personnage()[1]);
+		VueMenuPrincipal menuPrincipal=new VueMenuPrincipal();
 		
 		Systeme.getSystem().getCollection_personnage()[0].registerObserver(menuPirate);
 		Systeme.getSystem().getCollection_personnage()[1].registerObserver(menuFantome);
@@ -56,10 +59,11 @@ public class IHM extends JFrame{
 		menu.add(menuMoussaillon3, MENUMOUSSAILLON3);
 		menu.add(menuPirate, MENUPIRATE);
 		menu.add(menuFantome, MENUFANTOME);
+		menu.add(menuPrincipal,MENUPRINCIPAL);
 		
 		
 		
-		this.getContentPane().add(menu,BorderLayout.SOUTH);		
+		this.getContentPane().add(menu,BorderLayout.WEST);		
 		this.setVisible(true);
 	}
 	

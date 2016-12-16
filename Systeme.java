@@ -230,15 +230,7 @@ public class Systeme
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	public void deplacement(String direction)
 	{
-		if (getPersonnageCourant().getNbDeplacementRestant()==0){
-			if(getPersonnageCourant().getDelance()){
-				System.out.println("Plus de déplacement disponible\n");
-			}
-			else{
-				System.out.println("Lance le dé avant !\n");
-			}
-		}
-		else{
+		if (getPersonnageCourant().getNbDeplacementRestant() !=0){
 			// Case indiquant la position du personnage
 			Case position = getPersonnageCourant().getPosition();
 			int pos_x = position.getX();
@@ -258,7 +250,7 @@ public class Systeme
 			if (direction == "droite"){
 				new_case = Systeme.getGrille()[(pos_x+1)%12][pos_y];
 			}		
-			//TODO : vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
+			//vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
 			if(new_case.estValide())
 			{
 				if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
