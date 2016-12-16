@@ -8,6 +8,6 @@ import javax.swing.JPanel;
 public class VueFantome extends VueJoueur{
 	public VueFantome(Personnage p){
 		super(p);
-		this.add(new JLabel("Menu Fantome"),BorderLayout.EAST);
+		this.add(new JLabel("Menu Fantome"));
 	}
 }
