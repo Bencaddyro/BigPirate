@@ -264,7 +264,12 @@ public class Systeme
 			}
 		}
 	}
-	
+
+
+	public void gagne() {
+		System.out.println("Le "+this.getPersonnageCourant()+" gagne la partie");
+		ihm.printVue("Menu Principal");
+	}
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
