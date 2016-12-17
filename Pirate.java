@@ -18,7 +18,6 @@ public class Pirate extends Personnage {
 
 	public boolean estValide(Case destination){
 		if (this.historique==destination){
-			System.out.println("Ne reviens pas sur tes pas !");
 			return false;
 		}
 		else{
@@ -36,16 +35,11 @@ public class Pirate extends Personnage {
 		//Interactions
 		
 		Iterator<Personnage> itPerso = getPosition().getEquipage().iterator();
-		System.out.println("nb perso sur la case : "+this.getPosition().getEquipage().size());
 		for(int i=0;i<getPosition().getEquipage().size();i++){
 			Personnage mecSurLaCase=itPerso.next();
 			if (mecSurLaCase instanceof Moussaillon){
 				arrayMoussaillon.add((Moussaillon) mecSurLaCase);
-				System.out.println("Meurs " + mecSurLaCase.toString() + " !");
-				nb_moussaillon_elimine++;
-				
-				
-				
+				nb_moussaillon_elimine++;				
 			}
 		}
 		
@@ -58,7 +52,6 @@ public class Pirate extends Personnage {
 		}
 		
 		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
-		System.out.println("nb trésor sur la case : "+this.getPosition().getInventaire().size());
 		for(int i=0;i<this.getPosition().getInventaire().size();i++){
 			Tresor tresorSurLaCase=itTresor.next();
 			arrayTresor.add(tresorSurLaCase);
@@ -68,7 +61,12 @@ public class Pirate extends Personnage {
 			tresorCourant=arrayTresor.get(i);
 			getPosition().inventaire.remove(tresorCourant);
 			tresorCourant.retourGrotte();
-			System.out.println("Trésor " + tresorCourant.toString() + " attrappé !");
 		}
+	
+		if(nbDeplacementRestant==0){
+			Systeme.getSystem().finDeTour();
+		}
+		notifyObservers();
+	
 	}
 }

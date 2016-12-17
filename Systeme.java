@@ -44,7 +44,7 @@ public class Systeme
 		miseEnPlace();
 		
 		//Annonce que c'est au tour du premier moussaillon de jouer
-		collection_personnage[suivant].aToiDeJouer();
+		
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
@@ -180,11 +180,6 @@ public class Systeme
 		}
 	}
 	
-		
-	public void aGagne(Personnage perso)
-	{
-		System.out.println(perso + "a gagne");
-	}
 	
 	
 	//Rappel: Chacun des moussaillon joue son tour, puis le pirate, puis le fantôme.
@@ -214,8 +209,6 @@ public class Systeme
 			ihm.printVue("Menu Moussaillon 3");
 		}
 		collection_personnage[this.suivant].aToiDeJouer();
-
-		System.out.println("Fin de tour !");
 	}
 	
 	//TODO
@@ -264,12 +257,7 @@ public class Systeme
 			}
 		}
 	}
-
-
-	public void gagne() {
-		System.out.println("Le "+this.getPersonnageCourant()+" gagne la partie");
-		ihm.printVue("Menu Principal");
-	}
+	
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
@@ -278,8 +266,13 @@ public class Systeme
 	public static void main(String[] args)
 	{
 		Systeme systeme = Systeme.getSystem();
-		Systeme.start(5);
+		Systeme.start(3);
 		systeme.ihm=new IHM();
-		
+		collection_personnage[suivant].aToiDeJouer();
+	}
+
+	public void gagne(){
+		System.out.println("Le "+this.getPersonnageCourant()+" gagne la partie");
+		ihm.printVue("Menu Principal");
 	}
 }
