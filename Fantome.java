@@ -126,8 +126,8 @@ public class Fantome extends Personnage {
 	public void initZoneDeplacement() {
 		// intialisation du tableau à null dans chaque case
 		for (int i = 0; i < 7; i++) {
-			for (int j = 0; i < 7; i++) {
-				zone_de_deplacement[i][j] = null;
+			for (int j = 0; j < 7; j++) {
+				this.zone_de_deplacement[i][j] = null;
 			}
 		}
 		// On place le fantôme au centre du tableau
@@ -155,13 +155,15 @@ public class Fantome extends Personnage {
 		
 		System.out.println("nb déplacement restant : "+this.getNb_deplacement_fantome());
 		System.out.println("Ap nouvelle maj zonne de depl");
+		int z =0;
 		for (int i = 0; i < 7; i++)
 		{
 			for (int j = 0; j < 7; j++)
 			{
-				if(this.zone_de_deplacement[i][j] != null) System.out.println("["+i+"]["+j+"]");
+				if(this.zone_de_deplacement[i][j] != null) z++;
 			}
 		}
+		System.out.println("z ="+z);
 	}
 
 	
@@ -327,21 +329,19 @@ public class Fantome extends Personnage {
 		int random_x;
 		int random_y;
 		boolean meme_position;
-		//boolean deplacement1case;
-		//do {
+		System.out.println("test1");
 			do {
-				random_x = (int) (Math.random() * 4) - 1;
-				random_y = (int) (Math.random() * 4) - 1;
+				random_x = (int) (Math.random() * 7) - 3;
+				random_y = (int) (Math.random() * 7) - 3;
+				System.out.println(random_x + "   " + random_y);
 				meme_position = (this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] 
 						== this.getPosition());
-				// On vériffie que le fantôme ne se déplace que de une case
-				//deplacement1case = ((random_x == 1 && random_y == 1)
-					//	|| (random_x == -1 && random_y == -1)
-					//	|| (random_x == 1 && random_y == -1) || (random_x == -1 && random_y == 1));
+				
 			} while ((this.zone_de_deplacement[pos_x + random_x][pos_y
 					+ random_y] == null)
-					|| (meme_position)); //|| (deplacement1case));
+					|| (meme_position));
 
+			System.out.println("Houra on sort du while!!");
 			// Mise à jour du nombre déplacement restant
 			this.majNbDeplacement(this.zone_de_deplacement[pos_x + random_x][pos_y
 					+ random_y]);
@@ -352,7 +352,6 @@ public class Fantome extends Personnage {
 			this.zone_de_deplacement[pos_x][pos_y] = null;
 			this.setPosition_dans_la_zone_x(pos_x + random_x);
 			this.setPosition_dans_la_zone_y(pos_y + random_y);
-		//} while (this.getNb_deplacement_fantome() > 0);
 	}
 
 }
