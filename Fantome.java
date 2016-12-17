@@ -312,7 +312,6 @@ public class Fantome extends Personnage {
 			do {
 				random_x = (int) (Math.random() * 7) - 3;
 				random_y = (int) (Math.random() * 7) - 3;
-				System.out.println(random_x + "   " + random_y);
 				meme_position = (this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] 
 						== this.getPosition());
 				

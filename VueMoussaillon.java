@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,45 +15,50 @@ import javax.swing.JPanel;
 public class VueMoussaillon extends VueJoueur {
 
 	
-	JPanel entrerCocotier= new JPanel(new BorderLayout());
 	JButton eCocotier=new JButton(new ImageIcon("src/in.png"));
 	
-	JPanel carteCocotier= new JPanel(new BorderLayout());
-	JButton cCocotier=new JButton("Carte Cocotier");
+	JButton cCocotier=new JButton("Cocotier");
 	JLabel nbCocotier=new JLabel("");
 	
-	JPanel cartePerroquet= new JPanel(new BorderLayout());
 	JButton cPerroquet=new JButton(new ImageIcon("src/perroquet1.png"));
 	JLabel nbPerroquet = new JLabel("");
 	
-	JPanel tresor= new JPanel(new BorderLayout());
-	JButton lTresor=new JButton("Lacher trésor");
+	JButton lTresor=new JButton("Lacher");
 	JLabel inventaire = new JLabel("");
-	
-	
-	
 	
 	public VueMoussaillon(Personnage m){
 		super(m);		
 	
 		m.registerObserver(this);
+	
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+
 		
-		entrerCocotier.add(eCocotier,BorderLayout.NORTH);
-		this.add(entrerCocotier);
-				
-		carteCocotier.add(cCocotier,BorderLayout.NORTH);
-		carteCocotier.add(nbCocotier,BorderLayout.CENTER);
+		c.gridx=1;
+		c.gridy=5;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(nbCocotier,c);
 		
-		this.add(carteCocotier);
-				
-		cartePerroquet.add(cPerroquet,BorderLayout.NORTH);
-		cartePerroquet.add(nbPerroquet,BorderLayout.CENTER);
+		c.gridx=0;
+		c.gridy=6;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(cPerroquet,c);
 		
-		this.add(cartePerroquet);
+		c.gridx=1;
+		c.gridy=6;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(nbPerroquet,c);
 		
-		tresor.add(lTresor,BorderLayout.NORTH);
-		tresor.add(inventaire,BorderLayout.CENTER);
-		this.add(tresor);
+		c.gridx=1;
+		c.gridy=7;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(inventaire,c);
+		
 		
 		eCocotier.addActionListener(
 	    		new ActionListener(){
@@ -88,20 +94,58 @@ public class VueMoussaillon extends VueJoueur {
 	}
 	public void update(Observable arg0, Object arg1) {
 		super.update(arg0,arg1);
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		
 		nbCocotier.setText(""+((Moussaillon)arg0).getCollectionCocotier().size());
 		nbPerroquet.setText(""+((Moussaillon)arg0).getCollectionPerroquet().size());
+		
+		if(!((Moussaillon)arg0).getPosition().cocotierExt()){
+			this.remove(eCocotier);
+		}else{
+			c.gridx=0;
+			c.gridy=4;
+			c.gridwidth = 1;
+			c.gridheight = 1;
+			this.add(eCocotier,c);
+		}
+		
+		if(!((Moussaillon)arg0).getPosition().cocotierInter()){
+
+		}else{
+			if(!((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
+				c.gridx=0;
+				c.gridy=5;
+				c.gridwidth = 1;
+				c.gridheight = 1;
+				this.add(cCocotier,c);
+			}
+			
+		}
+		
 		
 		if(((Moussaillon)arg0).getPerroquet()){
 			cPerroquet.setIcon(new ImageIcon("src/perroquet2.png"));
 		}else{
 			cPerroquet.setIcon(new ImageIcon("src/perroquet1.png"));
 		}
-		
+		if(((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
+			this.remove(cPerroquet);
+			this.remove(nbPerroquet);			
+		}
+
 		
 		if(((Moussaillon)arg0).getMyTresor()==null){
 			inventaire.setIcon(new ImageIcon("src/coffrecross.png"));
+			this.remove(lTresor);
 		}else{
 			inventaire.setIcon(new ImageIcon("src/coffrecheck.png"));
+			c.gridx=0;
+			c.gridy=7;
+			c.gridwidth = 1;
+			c.gridheight = 1;
+			this.add(lTresor,c);
 		}
 		
 	}

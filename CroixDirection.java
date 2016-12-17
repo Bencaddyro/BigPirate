@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,12 +17,31 @@ public class CroixDirection extends JPanel {
 	private JButton gauche=new JButton(new ImageIcon("src/left-arrow.png"));
 	
 	public CroixDirection(){
-		super(new BorderLayout());
+		super(new GridBagLayout());		
 		
-		this.add(droite, BorderLayout.EAST);
-		this.add(gauche, BorderLayout.WEST);
-		this.add(bas, BorderLayout.SOUTH);
-		this.add(haut, BorderLayout.NORTH);
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		
+		c.gridx=2;
+		c.gridy=1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(droite,c);
+		c.gridx=0;
+		c.gridy=1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(gauche,c);
+		c.gridx=1;
+		c.gridy=2;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(bas,c);
+		c.gridx=1;
+		c.gridy=0;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(haut,c);
 		
 		gauche.addActionListener(
 	    		new ActionListener(){

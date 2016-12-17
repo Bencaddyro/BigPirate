@@ -11,6 +11,6 @@ public class VuePirate extends VueJoueur{
 	public VuePirate(Personnage p){
 		super(p);
 		p.registerObserver(this);
-		this.add(new JLabel("Menu Pirate"));
+		//this.add(new JLabel("Menu Pirate"));
 	}
 }
