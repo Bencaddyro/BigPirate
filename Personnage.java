@@ -12,9 +12,9 @@ public class Personnage extends Observable {
 	protected Boolean vivant = true;
 	Set<Observer> observers = new HashSet<Observer>();
 	
-	private int nbDeplacementRestant;
-	private boolean delance;
-	private int score;
+	protected int nbDeplacementRestant;
+	protected boolean delance;
+	protected int score;
 	
 	public int getNbDeplacementRestant() {
 		return nbDeplacementRestant;
@@ -63,11 +63,6 @@ public class Personnage extends Observable {
 		// Dire au personnage sur qu'elle case il est
 		this.setPosition(new_case);
 		nbDeplacementRestant--;
-		System.out.println("il a move en "+new_case.getX()+" "+new_case.getY());
-		if(nbDeplacementRestant==0){
-			Systeme.getSystem().finDeTour();
-		}
-		notifyObservers();
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------
@@ -84,10 +79,8 @@ public class Personnage extends Observable {
 		this.position = position;
 	}
 
-	public void lancerDe(String string) {
-		System.out.println("tentative lancement des "+delance);
+	public void lancerDe() {
 		if(!delance){
-			System.out.println("*bruit du de");
 			score=this.de.lancerDe();
 			nbDeplacementRestant=score;
 			delance=true;

@@ -49,19 +49,13 @@ public class Fantome extends Personnage {
 	// Mise à jour du nombre de déplacement du fantôme
 	// ------------------------------------------------------------------------------------------------------------------
 	public void majNbDeplacement(Case futur_case) {
-		System.out.println("nbdep : " + this.getNb_deplacement_fantome());
 		int pos_x = this.getPosition().getX();
-		System.out.println("posx : " + pos_x);
 		int pos_y = this.getPosition().getY();
-		System.out.println("posy : " + pos_y);
 		int futur_pos_x = futur_case.getX();
-		System.out.println("newposx : " + futur_pos_x);
 		int futur_pos_y = futur_case.getY();
-		System.out.println("newposy : " + futur_pos_y);
 		int new_deplacement = this.getNb_deplacement_fantome()
 				- (Math.abs(futur_pos_x - pos_x) + Math
 						.abs(futur_pos_y - pos_y));
-		System.out.println("majNbDeplacement nbdep : " + new_deplacement);
 		this.setNb_deplacement_fantome(new_deplacement);
 	}
 
@@ -69,25 +63,16 @@ public class Fantome extends Personnage {
 	// Tour de jeu du fantôme
 	// ------------------------------------------------------------------------------------------------------------------
 	public void aToiDeJouer() {
-		System.out.println("Tour du fantôme");
 		// création de la zone déplacement du fantôme + lancé de dé
-		this.zoneDeplacement();
-		System.out.println("zone de déplacement intitilisé");
-			
+		this.zoneDeplacement();			
 		// recherche du moussaillon dans la zone de déplacement par le fantôme + déplacement
 		Moussaillon moussaillon_victime = this.rechercheMoussaillon();
 		this.poursuit(moussaillon_victime);
-
-		System.out.println("nb déplacement restant après recherche du moussaillon : "+this.getNb_deplacement_fantome());
-		System.out.println("recherche et déplacement fait");
 		// S'il lui reste un deplacement possible il l'effectue
 		if (this.getNb_deplacement_fantome() > 0) 
 			{
 			this.seDeplaceAleatoirement();
-			System.out.println("nb déplacement restant : "+this.getNb_deplacement_fantome());
-			System.out.println("déplacement fait");
 			}
-		System.out.println("nb déplacement restant : "+this.getNb_deplacement_fantome());
 		Systeme.getSystem().finDeTour();
 	}
 
@@ -153,8 +138,6 @@ public class Fantome extends Personnage {
 		if (n == 2) this.deplacementScore2(x, y, pos_x_fantome, pos_y_fantome);
 		if (n == 3) this.deplacementScore3(x, y, pos_x_fantome, pos_y_fantome);
 		
-		System.out.println("nb déplacement restant : "+this.getNb_deplacement_fantome());
-		System.out.println("Ap nouvelle maj zonne de depl");
 		int z =0;
 		for (int i = 0; i < 7; i++)
 		{
@@ -163,7 +146,6 @@ public class Fantome extends Personnage {
 				if(this.zone_de_deplacement[i][j] != null) z++;
 			}
 		}
-		System.out.println("z ="+z);
 	}
 
 	
@@ -289,7 +271,6 @@ public class Fantome extends Personnage {
 					moussaillon_victime = this.zone_de_deplacement[i][j].moussaillonPresent();
 					// Si un moussaillon est présent sur la case il le retourne
 					if (moussaillon_victime != null) {
-						System.out.println("Moussaillon trouvé");
 						return moussaillon_victime;
 					}
 				}
@@ -312,7 +293,6 @@ public class Fantome extends Personnage {
 					[this.getPosition_dans_la_zone_y()] = null;
 			moussaillon.bouh();
 		}
-		System.out.println("poursuit nb depl : " +this.getNb_deplacement_fantome());
 		if(this.getNb_deplacement_fantome() > 0) this.majZoneDeDeplacement();
 	}
 	
@@ -329,7 +309,6 @@ public class Fantome extends Personnage {
 		int random_x;
 		int random_y;
 		boolean meme_position;
-		System.out.println("test1");
 			do {
 				random_x = (int) (Math.random() * 7) - 3;
 				random_y = (int) (Math.random() * 7) - 3;
@@ -341,7 +320,6 @@ public class Fantome extends Personnage {
 					+ random_y] == null)
 					|| (meme_position));
 
-			System.out.println("Houra on sort du while!!");
 			// Mise à jour du nombre déplacement restant
 			this.majNbDeplacement(this.zone_de_deplacement[pos_x + random_x][pos_y
 					+ random_y]);

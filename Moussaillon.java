@@ -5,11 +5,11 @@ import java.util.HashSet;
 
 public class Moussaillon extends Personnage {
 	
-	private AbstractCollection<Cocotier> collectionCocotier=new HashSet();
-	private AbstractCollection<Perroquet> collectionPerroquet=new HashSet();;
+	private AbstractCollection<Cocotier> collectionCocotier=new HashSet<Cocotier>();
+	private AbstractCollection<Perroquet> collectionPerroquet=new HashSet<Perroquet>();;
 	private static int[][] tab={{5,4,3},{3,2,1}};
 	private Case historique;
-	private Boolean perroquet;
+	private Boolean perroquet=false;
 	private Tresor myTresor;
 	
 	public Moussaillon(Integer nbMoussaillon){
@@ -21,8 +21,7 @@ public class Moussaillon extends Personnage {
 			this.collectionPerroquet.add(new Perroquet());
 		}
 		path="src/moussaillon.png";	
-		
-		//Partie de Manu, comment il lance un dé si il en a pas ?
+
 		this.de=new Des3();
 	}
 	
@@ -40,18 +39,20 @@ public class Moussaillon extends Personnage {
 		return collectionPerroquet;
 	}
 	
-	
+	public boolean getPerroquet() {
+		return perroquet;
+	}
+
 	
 	
 	public void bouge(Case new_case){
 		historique=this.getPosition();
 		super.bouge(new_case);
 		if(this.getPosition().inventaire.size()!=0 && myTresor==null){
-			System.out.println("Prise du trésor !");
 			this.myTresor=this.getPosition().inventaire.iterator().next();
 			this.getPosition().inventaire.remove(this.myTresor);
 		}
-		notifyObservers();
+		notifyObservers();		
 	}
 	
 	
@@ -64,19 +65,24 @@ public class Moussaillon extends Personnage {
 	}
 	
 	public void lancerDe() {
-		if(perroquet){
-			setScore(2*this.de.lancerDe());
+		if(!delance){
+			if(perroquet){
+				setScore(2*this.de.lancerDe());
+			}
+			else{
+				setScore(this.de.lancerDe());
+			}
+			nbDeplacementRestant=score;
+			delance=true;
+			notifyObservers();
 		}
-		else{
-			setScore(this.de.lancerDe());
-		}
-		notifyObservers();
 	}
 	
 	public void aToiDeJouer(){
 		super.aToiDeJouer();
 		perroquet=false;
-		historique=null;		
+		historique=null;
+		notifyObservers();
 	}
 	
 	public void meurs(){
@@ -87,10 +93,7 @@ public class Moussaillon extends Personnage {
 	}
 	
 	public void cartePerroquet(){
-		if(collectionPerroquet.isEmpty()){
-			System.out.println("utilisation carte perroquet alors que yan a pu ! #fungenieur");
-		}
-		else{
+		if(!collectionPerroquet.isEmpty()){
 			collectionPerroquet.remove(collectionPerroquet.iterator().next());
 			perroquet=true;
 		}
@@ -100,15 +103,11 @@ public class Moussaillon extends Personnage {
 	public void carteCocotier(){
 		if(this.getPosition().cocotierInter()){
 			if(collectionCocotier.isEmpty()){
-				System.out.println("utilisation carte cocotier alors que yan a pu ! #fungenieur");
 			}
 			else{
 				collectionCocotier.remove(collectionCocotier.iterator().next());
 				Systeme.getSystem().finDeTour();
 			}
-		}
-		else{
-			System.out.println("Invalid push button Cocotier, t'es pas sur une case malfrat !");
 		}
 		notifyObservers();
 	}
@@ -119,40 +118,30 @@ public class Moussaillon extends Personnage {
 		if(this.getPosition().getClass()==CocotierExt.class){
 			Case new_case=((CocotierExt)this.getPosition()).getCoco();
 			bouge(new_case);
-			System.out.println("COCOTIER !");
 			Systeme.getSystem().finDeTour();
 		}
-		else{
-			System.out.println("wrong use of entrer cocotier , t'es pas sur un ext cocotier");
-		}
 		notifyObservers();
-		
-	}
-
-
-
-	public void poursuit() {
-		
 		
 	}
 
 	public void lacherTresor() {
 		if(this.myTresor!=null){
-			this.getPosition().getInventaire().add(this.myTresor);
+			this.getPosition().addTresor(this.myTresor);
 		}
 		this.myTresor=null;
 		notifyObservers();
 	}
 
-
-
 	public void bouh() {
-		System.out.println("bouh !");
 		if(myTresor!=null){
 			myTresor.teleportation();
 		}
-		myTresor=null;		
+		myTresor=null;
+		notifyObservers();
 	}
+
+
+
 
 
 }

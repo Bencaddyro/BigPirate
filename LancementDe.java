@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,10 +12,9 @@ import javax.swing.JPanel;
 
 public class LancementDe extends JPanel implements Observer{
 	
-	JButton lancerDe=new JButton("Lance le dé!");
+	JButton lancerDe=new JButton(new ImageIcon("src/dice.png"));
 	JLabel resultDe=new JLabel("En attente du résultat");
 	JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
-	
 	
 	public LancementDe() {
 		super(new BorderLayout());	
@@ -26,9 +26,7 @@ public class LancementDe extends JPanel implements Observer{
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
 	    				//fonction de deplacement
-	    				System.out.println("tentative lancement des 0");
-	    				Systeme.getSystem().getPersonnageCourant().lancerDe("bula");
-	    				System.out.println("de lancer 0");
+	    				Systeme.getSystem().getPersonnageCourant().lancerDe();
 	    			}
 	    		}		
 	    	);

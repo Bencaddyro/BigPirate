@@ -17,9 +17,6 @@ public class IHM extends JFrame{
 	
 	JPanel menu=new JPanel(new CardLayout());
 	JPanel carte;
-	String MENUMOUSSAILLON1="Menu Moussaillon 1";
-	String MENUMOUSSAILLON2="Menu Moussaillon 2";
-	String MENUMOUSSAILLON3="Menu Moussaillon 3";
 	String MENUPIRATE="Menu Pirate";
 	String MENUFANTOME="Menu Fantome";
 	String MENUPRINCIPAL="Menu Principal";
@@ -28,7 +25,7 @@ public class IHM extends JFrame{
 
 		super("BigPirate");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(new Dimension(1000,800));
+		this.setSize(new Dimension(980,760));
 		this.setLayout(new BorderLayout());
 		
 		//interface visualisation plateau
@@ -37,26 +34,21 @@ public class IHM extends JFrame{
 				
 		
 		//Déclaration des vues/menus
-		VueMoussaillon menuMoussaillon1=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[2]);
-		VueMoussaillon menuMoussaillon2=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[3]);
-		VueMoussaillon menuMoussaillon3=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[4]);
+		VueMoussaillon tabVueMoussaillon[] = new VueMoussaillon[Systeme.getSystem().getNb_moussaillon()];
 		
+		for(int i=0;i<Systeme.getSystem().getNb_moussaillon();i++){
+			tabVueMoussaillon[i]=new VueMoussaillon(Systeme.getSystem().getCollection_personnage()[i+2]);
+			menu.add(tabVueMoussaillon[i], "Menu Moussaillon "+(i+1));
+		}
 
 		
 		VuePirate menuPirate=new VuePirate(Systeme.getSystem().getCollection_personnage()[0]);
 		VueFantome menuFantome=new VueFantome(Systeme.getSystem().getCollection_personnage()[1]);
 		VueMenuPrincipal menuPrincipal=new VueMenuPrincipal();
-		
-		Systeme.getSystem().getCollection_personnage()[0].registerObserver(menuPirate);
-		Systeme.getSystem().getCollection_personnage()[1].registerObserver(menuFantome);
-		
-		
+				
 		//interface commande des joueurs
 		
 		
-		menu.add(menuMoussaillon1, MENUMOUSSAILLON1);
-		menu.add(menuMoussaillon2, MENUMOUSSAILLON2);
-		menu.add(menuMoussaillon3, MENUMOUSSAILLON3);
 		menu.add(menuPirate, MENUPIRATE);
 		menu.add(menuFantome, MENUFANTOME);
 		menu.add(menuPrincipal,MENUPRINCIPAL);

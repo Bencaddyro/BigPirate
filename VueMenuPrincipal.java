@@ -21,7 +21,6 @@ public class VueMenuPrincipal extends JPanel implements Observer {
 		this.add(nb_joueurs);
 		
 	}
-
 	
 	public void update(Observable o, Object arg) {
 		
