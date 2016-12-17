@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -17,10 +19,29 @@ public class LancementDe extends JPanel implements Observer{
 	JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
 	
 	public LancementDe() {
-		super(new BorderLayout());	
-		this.add(lancerDe,BorderLayout.NORTH);		
-		this.add(resultDe,BorderLayout.CENTER);
-		this.add(nbDeplacementRestant,BorderLayout.SOUTH);
+		super(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		
+		c.gridx=0;
+		c.gridy=0;
+		c.gridwidth = 1;
+		c.gridheight = 2;
+		
+		this.add(lancerDe,c);
+		
+		c.gridx=1;
+		c.gridy=0;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(resultDe,c);
+		
+		c.gridx=1;
+		c.gridy=1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(nbDeplacementRestant,c);
 				
 		lancerDe.addActionListener(
 	    		new ActionListener(){

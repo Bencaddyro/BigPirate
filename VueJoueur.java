@@ -1,3 +1,5 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -13,24 +15,47 @@ public abstract class VueJoueur extends JPanel implements Observer{
 	
 	CroixDirection croix = new CroixDirection();
 	LancementDe lancement = new LancementDe();
-	JButton finDuTour=new JButton("Fin du tour");
+	JButton finDuTour=new JButton("Fin ");
 
 
 	
 	
 	public VueJoueur(Personnage p) {
-		this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+		this.setLayout(new GridBagLayout());
 		
-		this.add(croix);
-		this.add(lancement);
-		this.add(finDuTour);
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		
+		c.gridx=0;
+		c.gridy=0;
+		
+		c.gridwidth = 2;
+		c.gridheight = 2;
+		c.anchor=GridBagConstraints.PAGE_START;
+		this.add(croix,c);
+		
+		c.gridx=0;
+		c.gridy=2;
+		
+		c.gridwidth = 2;
+		c.gridheight = 1;
+		c.anchor=GridBagConstraints.PAGE_START;
+		this.add(lancement,c);
+		
+		
+		
+		c.gridx=0;
+		c.gridy=8;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.anchor=GridBagConstraints.PAGE_END;
+		this.add(finDuTour,c);
 		
 		p.registerObserver(lancement);
 		
 		finDuTour.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
-	    				System.out.println("Fin du tour de " + Systeme.getSystem().getPersonnageCourant().toString());
 	    				Systeme.getSystem().finDeTour();
 	    			}
 	    		}		

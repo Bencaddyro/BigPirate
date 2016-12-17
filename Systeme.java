@@ -275,4 +275,12 @@ public class Systeme
 		System.out.println("Le "+this.getPersonnageCourant()+" gagne la partie");
 		ihm.printVue("Menu Principal");
 	}
+
+	public void setIhm(IHM ihm2) {
+		this.ihm=ihm2;
+	}
+
+	public void debut() {
+		collection_personnage[suivant].aToiDeJouer();
+	}
 }

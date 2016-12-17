@@ -93,7 +93,7 @@ public class Moussaillon extends Personnage {
 	}
 	
 	public void cartePerroquet(){
-		if(!collectionPerroquet.isEmpty()){
+		if(!collectionPerroquet.isEmpty() && !perroquet){
 			collectionPerroquet.remove(collectionPerroquet.iterator().next());
 			perroquet=true;
 		}
