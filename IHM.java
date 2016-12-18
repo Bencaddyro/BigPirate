@@ -32,8 +32,28 @@ public class IHM extends JFrame{
 		carte=new Carte();
 		this.getContentPane().add(carte,BorderLayout.CENTER);
 				
+
+		VueMenuPrincipal menuPrincipal=new VueMenuPrincipal();
+				
+
+		menu.add(menuPrincipal,MENUPRINCIPAL);
 		
-		//Déclaration des vues/menus
+		
+		
+		this.getContentPane().add(menu,BorderLayout.WEST);
+		
+		this.printVue(MENUPRINCIPAL);
+		
+		
+		this.setVisible(true);
+	}
+	
+	
+	public void resetIHM(){
+		this.getContentPane().removeAll();
+		carte=new Carte();
+		this.getContentPane().add(carte,BorderLayout.CENTER);
+		
 		VueMoussaillon tabVueMoussaillon[] = new VueMoussaillon[Systeme.getSystem().getNb_moussaillon()];
 		
 		for(int i=0;i<Systeme.getSystem().getNb_moussaillon();i++){
@@ -55,8 +75,9 @@ public class IHM extends JFrame{
 		
 		
 		
-		this.getContentPane().add(menu,BorderLayout.WEST);		
-		this.setVisible(true);
+		this.getContentPane().add(menu,BorderLayout.WEST);
+		
+		this.printVue(MENUPRINCIPAL);
 	}
 	
 	public void printVue(String vue){
