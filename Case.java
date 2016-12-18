@@ -104,6 +104,11 @@ public abstract class Case extends Observable {
 	public void registerObserver(Observer obs){
 		observers.add(obs);
 	}
+	public void reset() {
+		inventaire=new HashSet<Tresor>();
+		equipage=new HashSet<Personnage>();
+		observers = new HashSet<Observer>();
+	}
 	
 }
 

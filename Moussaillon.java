@@ -52,6 +52,9 @@ public class Moussaillon extends Personnage {
 			this.myTresor=this.getPosition().inventaire.iterator().next();
 			this.getPosition().inventaire.remove(this.myTresor);
 		}
+		if(nbDeplacementRestant==0 && myTresor==null && !(position instanceof CocotierExt)){
+			Systeme.getSystem().finDeTour();
+		}
 		notifyObservers();		
 	}
 	
@@ -93,7 +96,7 @@ public class Moussaillon extends Personnage {
 	}
 	
 	public void cartePerroquet(){
-		if(!collectionPerroquet.isEmpty() && !perroquet){
+		if(!collectionPerroquet.isEmpty() && !perroquet && !delance){
 			collectionPerroquet.remove(collectionPerroquet.iterator().next());
 			perroquet=true;
 		}

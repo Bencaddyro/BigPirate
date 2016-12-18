@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 public class VueMenuPrincipal extends JPanel implements Observer {
 	JButton lancerPartie=new JButton("Lancez la partie !");
-	JTextField nb_joueurs=new JTextField("Entrez le nombre de joueurs");
+	JTextField nb_joueurs=new JTextField();
 	JLabel label_nb_joueurs=new JLabel("Nombre de joueurs");
 
 	public VueMenuPrincipal(){
@@ -48,7 +48,7 @@ public class VueMenuPrincipal extends JPanel implements Observer {
 	    			public void actionPerformed(ActionEvent e){
 	    				if(Integer.valueOf(nb_joueurs.getText())>1){
 		    				Systeme.start(1+Integer.valueOf(nb_joueurs.getText()));
-		    				Systeme.getSystem().setIhm(new IHM());
+		    				Systeme.getSystem().getIhm().resetIHM();
 		    				Systeme.getSystem().debut();
 	    				}
 	    			}
