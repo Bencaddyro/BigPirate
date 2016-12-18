@@ -83,7 +83,9 @@ public class Systeme
 		this.nb_perso = nb_perso;
 	}
 	
+	//----------------------------------------------------------------------------------------------------------------------------------------
 	// Initialisation de la grille
+	//----------------------------------------------------------------------------------------------------------------------------------------
 	public void initGrille()
 	{
 		grille = new Case[12][12];
@@ -146,8 +148,9 @@ public class Systeme
 		grille[11][1]= new Barque(11,1);
 	}
 	
-	
-	//Mise en place des personnages
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//Mise en place des personnages sur la grille (le plateau de jeu)
+	//----------------------------------------------------------------------------------------------------------------------------------------
 	public static void miseEnPlace()
 	{
 		//Mise en place du pirate  
@@ -181,10 +184,13 @@ public class Systeme
 	}
 	
 	
-	
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//Fin de tour d'un personnage, attribution de son tour au suivant
+
 	//Rappel: Chacun des moussaillon joue son tour, puis le pirate, puis le fantôme.
 	//Le Personnage passé en paramètre (perso) est le personnage qui vient de réaliser son tour de jeu
 	//public Personnage suivant()
+	//----------------------------------------------------------------------------------------------------------------------------------------
 	public void finDeTour()
 	{
 
@@ -211,8 +217,6 @@ public class Systeme
 		collection_personnage[this.suivant].aToiDeJouer();
 	}
 	
-	//TODO
-	//public Moussaillon moussaillonPresent(int score){}
 	
 	//TODO
 	//public boolean caseValide(Case case){}

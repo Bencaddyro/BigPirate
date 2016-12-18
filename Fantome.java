@@ -79,7 +79,6 @@ public class Fantome extends Personnage {
 	// ------------------------------------------------------------------------------------------------------------------
 	// Zone de déplacement du fantôme
 	// ------------------------------------------------------------------------------------------------------------------
-	// TODO: zoneDeplacement
 	public void zoneDeplacement() {
 		this.setNb_deplacement_fantome(de.lancerDe());
 		this.initZoneDeplacement();
@@ -122,7 +121,7 @@ public class Fantome extends Personnage {
 	}
 
 	// ------------------------------------------------------------------------------------------------------------------
-	// Mise à jour de la zone de déplacement du fantôme dans le cas ou aucun mousssaillon n'a été trouvé
+	// Mise à jour de la zone de déplacement du fantôme suivant le nombre de déplacement qu'il lui reste à effectuer
 	// ------------------------------------------------------------------------------------------------------------------
 	public void majZoneDeDeplacement() {
 		int n = this.getNb_deplacement_fantome();
@@ -258,9 +257,8 @@ public class Fantome extends Personnage {
 	// Recherche d'un moussaillon dans la zone de déplacement
 	// ------------------------------------------------------------------------------------------------------------------
 	public Moussaillon rechercheMoussaillon() {
-		// Parcourt de la zone de déplacement du fantôme
 		Moussaillon moussaillon_victime = null;
-		
+		// Parcourt de la zone de déplacement du fantôme		
 		// Recherche de moussaillon
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 7; j++) {
@@ -284,6 +282,7 @@ public class Fantome extends Personnage {
 	// Poursuite du moussailloon par le fantôme
 	// ------------------------------------------------------------------------------------------------------------------
 	private void poursuit(Moussaillon moussaillon) {
+		//Si le moussaillon victime trouvé lors de la recherche existe le fantôme se déplace jusqu'à lui et lui fait perdre sont trésort
 		if(moussaillon != null)
 		{
 			this.majNbDeplacement(moussaillon.getPosition());
@@ -304,14 +303,15 @@ public class Fantome extends Personnage {
 		int pos_x = this.getPosition_dans_la_zone_x();
 		int pos_y = this.getPosition_dans_la_zone_y();
 
-		// Génération d'une position aléatoire dans la zone de déplacement
-		// autorisé
+
 		int random_x;
 		int random_y;
 		boolean meme_position;
+			// Génération d'une position aléatoire (autorisée) dans la zone de déplacement
 			do {
 				random_x = (int) (Math.random() * 7) - 3;
 				random_y = (int) (Math.random() * 7) - 3;
+				//On s'assure qu'il ne s'agit pas de la position actuelle du fantôme dans la zone
 				meme_position = (this.zone_de_deplacement[pos_x + random_x][pos_y + random_y] 
 						== this.getPosition());
 				
@@ -322,7 +322,7 @@ public class Fantome extends Personnage {
 			// Mise à jour du nombre déplacement restant
 			this.majNbDeplacement(this.zone_de_deplacement[pos_x + random_x][pos_y
 					+ random_y]);
-			// Déplacement d'une case
+			// Déplacemant du fantôme
 			this.bouge(this.zone_de_deplacement[pos_x + random_x][pos_y
 					+ random_y]);
 			// On ne permet pas au fantôme de revenir sur ses pas
