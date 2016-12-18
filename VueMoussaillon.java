@@ -34,6 +34,11 @@ public class VueMoussaillon extends VueJoueur {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 
+		c.gridx=0;
+		c.gridy=5;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		this.add(cCocotier,c);
 		
 		c.gridx=1;
 		c.gridy=5;
@@ -111,19 +116,10 @@ public class VueMoussaillon extends VueJoueur {
 			this.add(eCocotier,c);
 		}
 		
-		if(!((Moussaillon)arg0).getPosition().cocotierInter()){
 
-		}else{
-			if(!((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
-				c.gridx=0;
-				c.gridy=5;
-				c.gridwidth = 1;
-				c.gridheight = 1;
-				this.add(cCocotier,c);
-			}
-			
-		}
-		
+		if(((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
+			this.remove(cCocotier);
+		}		
 		
 		if(((Moussaillon)arg0).getPerroquet()){
 			cPerroquet.setIcon(new ImageIcon("src/perroquet2.png"));

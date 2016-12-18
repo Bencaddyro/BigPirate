@@ -5,7 +5,7 @@ import java.util.Set;
 
 
 public class Personnage extends Observable {
-	private Case position;
+	protected Case position;
 	protected Des de; 
 	protected String path;
 	

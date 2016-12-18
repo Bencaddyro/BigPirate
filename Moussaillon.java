@@ -52,6 +52,12 @@ public class Moussaillon extends Personnage {
 			this.myTresor=this.getPosition().inventaire.iterator().next();
 			this.getPosition().inventaire.remove(this.myTresor);
 		}
+		if(myTresor!=null && getPosition() instanceof Barque){
+			Systeme.getSystem().gagne();
+		}		
+		if(nbDeplacementRestant==0 && myTresor==null && !(position instanceof CocotierExt)){
+			Systeme.getSystem().finDeTour();
+		}
 		notifyObservers();		
 	}
 	
@@ -93,7 +99,7 @@ public class Moussaillon extends Personnage {
 	}
 	
 	public void cartePerroquet(){
-		if(!collectionPerroquet.isEmpty() && !perroquet){
+		if(!collectionPerroquet.isEmpty() && !perroquet && !delance){
 			collectionPerroquet.remove(collectionPerroquet.iterator().next());
 			perroquet=true;
 		}
@@ -101,15 +107,16 @@ public class Moussaillon extends Personnage {
 	}
 	
 	public void carteCocotier(){
-		if(this.getPosition().cocotierInter()){
-			if(collectionCocotier.isEmpty()){
-			}
-			else{
-				collectionCocotier.remove(collectionCocotier.iterator().next());
-				Systeme.getSystem().finDeTour();
-			}
+		if(!delance 
+				&& !perroquet 
+				&& this.getPosition().cocotierInter() 
+				&& !collectionCocotier.isEmpty()){
+					collectionCocotier.remove(collectionCocotier.iterator().next());
+					delance=true;
+					nbDeplacementRestant=0;
+					Systeme.getSystem().finDeTour();
+					notifyObservers();			
 		}
-		notifyObservers();
 	}
 
 
@@ -118,6 +125,7 @@ public class Moussaillon extends Personnage {
 		if(this.getPosition().getClass()==CocotierExt.class){
 			Case new_case=((CocotierExt)this.getPosition()).getCoco();
 			bouge(new_case);
+			nbDeplacementRestant=0;
 			Systeme.getSystem().finDeTour();
 		}
 		notifyObservers();
@@ -125,11 +133,13 @@ public class Moussaillon extends Personnage {
 	}
 
 	public void lacherTresor() {
-		if(this.myTresor!=null){
-			this.getPosition().addTresor(this.myTresor);
+		if(!(getPosition() instanceof CocotierInter)){
+			if(this.myTresor!=null){
+				this.getPosition().addTresor(this.myTresor);
+			}
+			this.myTresor=null;
+			notifyObservers();
 		}
-		this.myTresor=null;
-		notifyObservers();
 	}
 
 	public void bouh() {

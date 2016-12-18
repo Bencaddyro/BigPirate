@@ -32,8 +32,29 @@ public class IHM extends JFrame{
 		carte=new Carte();
 		this.getContentPane().add(carte,BorderLayout.CENTER);
 				
+
+		VueMenuPrincipal menuPrincipal=new VueMenuPrincipal();
+				
+
+		menu.add(menuPrincipal,MENUPRINCIPAL);
 		
-		//Déclaration des vues/menus
+		
+		
+		this.getContentPane().add(menu,BorderLayout.WEST);
+		
+		this.printVue(MENUPRINCIPAL);
+		
+		
+		this.setVisible(true);
+	}
+	
+	
+	public void resetIHM(){
+		this.getContentPane().removeAll();
+		carte=new Carte();
+		this.getContentPane().add(carte,BorderLayout.CENTER);
+		
+
 		VueMoussaillon tabVueMoussaillon[] = new VueMoussaillon[Systeme.getSystem().getNb_moussaillon()];
 		
 		for(int i=0;i<Systeme.getSystem().getNb_moussaillon();i++){
@@ -55,18 +76,25 @@ public class IHM extends JFrame{
 		
 		
 		
-		this.getContentPane().add(menu,BorderLayout.WEST);		
-		this.setVisible(true);
+		this.getContentPane().add(menu,BorderLayout.WEST);
+		
+		this.printVue(MENUPRINCIPAL);
 	}
 	
 	/**
-	 * Cette méthode affiche simplement la vue désirée sur l'IHM en changeant le CardLayout menu
+	 * Cette methode affiche simplement la vue dï¿½sirï¿½e sur l'IHM en changeant le CardLayout menu
 	 * @see VueJoueur
 	 * 
 	 * @param vue 
 	 */
 	public void printVue(String vue){
 		((CardLayout) menu.getLayout()).show(menu,vue);
+	}
+
+
+	public void setVictory(String s) {
+		
+		
 	}
 
 
