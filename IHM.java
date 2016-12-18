@@ -85,4 +85,10 @@ public class IHM extends JFrame{
 	}
 
 
+	public void setVictory(String s) {
+		
+		
+	}
+
+
 }

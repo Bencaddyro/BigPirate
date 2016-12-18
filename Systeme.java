@@ -1,5 +1,10 @@
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
 
-public class Systeme 
+
+public class Systeme extends Observable
 {
 	private static Case[][] grille;
 	private static Personnage[] collection_personnage;
@@ -8,8 +13,8 @@ public class Systeme
 	private static int suivant; //indique à qui est le tour de jeu
 	private IHM ihm;
 	private static Systeme instance=null;
-	
-	
+	private String victoire;
+	Set<Observer> observers = new HashSet<Observer>();
 	
 
 //coordoner de la map en bas a gauche case 0,0	
@@ -26,6 +31,14 @@ public class Systeme
 		this.initGrille();	
 	}
 	
+	public void notifyObservers(){
+		for (Observer o: this.observers){
+			o.update(this,this);
+		}
+	}
+	public void registerObserver(Observer obs){
+		observers.add(obs);
+	}
 	
 	public static void start(int nbperso){
 		nb_moussaillon= nbperso - 2 ;
@@ -272,7 +285,13 @@ public class Systeme
 	}
 
 	public void gagne(){
-		System.out.println("Le "+this.getPersonnageCourant()+" gagne la partie");
+		if(collection_personnage[suivant] instanceof Moussaillon){
+			victoire="Bravo Moussaillon "+(suivant-1)+", tu a vaincu le Pirate !";
+		}else{
+			victoire="Bravo Pirate, tu a vaincu tous ces voleurs de moussaillons !";
+		}
+		System.out.println(victoire);
+		notifyObservers();
 		ihm.printVue("Menu Principal");
 	}
 
@@ -284,5 +303,14 @@ public class Systeme
 
 	public IHM getIhm() {
 		return ihm;
+	}
+
+	public String getVictoire() {
+		return victoire;
+	}
+
+	public void setVicoire(String string) {
+		victoire=string;
+		notifyObservers();
 	}
 }
