@@ -15,10 +15,6 @@ public abstract class VueJoueur extends JPanel implements Observer{
 	
 	CroixDirection croix = new CroixDirection();
 	LancementDe lancement = new LancementDe();
-	JButton finDuTour=new JButton("Fin ");
-
-
-	
 	
 	public VueJoueur(Personnage p) {
 		this.setLayout(new GridBagLayout());
@@ -42,24 +38,8 @@ public abstract class VueJoueur extends JPanel implements Observer{
 		c.anchor=GridBagConstraints.PAGE_START;
 		this.add(lancement,c);
 		
-		
-		
-		c.gridx=0;
-		c.gridy=8;
-		c.gridwidth = 1;
-		c.gridheight = 1;
-		c.anchor=GridBagConstraints.PAGE_END;
-		this.add(finDuTour,c);
-		
 		p.registerObserver(lancement);
-		
-		finDuTour.addActionListener(
-	    		new ActionListener(){
-	    			public void actionPerformed(ActionEvent e){
-	    				Systeme.getSystem().finDeTour();
-	    			}
-	    		}		
-	    	);
+
 	}
 
 

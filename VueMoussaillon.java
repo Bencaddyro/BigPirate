@@ -26,6 +26,8 @@ public class VueMoussaillon extends VueJoueur {
 	JButton lTresor=new JButton("Lacher");
 	JLabel inventaire = new JLabel("");
 	
+	JButton finDuTour=new JButton("Fin ");
+	
 	public VueMoussaillon(Personnage m){
 		super(m);		
 	
@@ -64,6 +66,12 @@ public class VueMoussaillon extends VueJoueur {
 		c.gridheight = 1;
 		this.add(inventaire,c);
 		
+		c.gridx=0;
+		c.gridy=8;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.anchor=GridBagConstraints.PAGE_END;
+		this.add(finDuTour,c);
 		
 		eCocotier.addActionListener(
 	    		new ActionListener(){
@@ -96,6 +104,14 @@ public class VueMoussaillon extends VueJoueur {
 	    			}
 	    		}		
 	    	);
+		
+		finDuTour.addActionListener(
+	    		new ActionListener(){
+	    			public void actionPerformed(ActionEvent e){
+	    				Systeme.getSystem().finDeTour();
+	    			}
+	    		}		
+	    	);
 	}
 	public void update(Observable arg0, Object arg1) {
 		super.update(arg0,arg1);
@@ -117,7 +133,7 @@ public class VueMoussaillon extends VueJoueur {
 		}
 		
 
-		if(((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
+		if(((Moussaillon)arg0).getCollectionCocotier().isEmpty()){
 			this.remove(cCocotier);
 		}		
 		

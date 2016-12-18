@@ -17,7 +17,7 @@ public class Pirate extends Personnage {
 	}
 
 	/**
-	 * Prend en paramètre une case et renvoie false si c'est la dernière case visitée par le pirate, true sinon.
+	 * Prend en parametre une case et renvoie false si c'est la derniere case visitee par le pirate, true sinon.
 	 * 
 	 * @param destination
 	 * @return boolean
@@ -32,11 +32,11 @@ public class Pirate extends Personnage {
 	}
 	
 	/**
-	 * Traite le déplacement du Pirate.
-	 * On définit des itérateurs sur l'ensemble des personnages sur la case cible ainsi que l'ensemble des trésors sur la case cible.
-	 * Puis on applique les traitements respectifs à chacun : le pirate attrappe chaque Moussaillon et renvoie à la grotte chaque
-	 * trésor.
-	 * Le pirate finit son tour lorsqu'il n'a plus de déplacements disponibles.
+	 * Traite le deplacement du Pirate.
+	 * On dÃ©finit des itÃ©rateurs sur l'ensemble des personnages sur la case cible ainsi que l'ensemble des trÃ©sors sur la case cible.
+	 * Puis on applique les traitements respectifs Ã  chacun : le pirate attrappe chaque Moussaillon et renvoie Ã  la grotte chaque
+	 * trÃ©sor.
+	 * Le pirate finit son tour lorsqu'il n'a plus de dÃ©placements disponibles.
 	 * 
 	 * @see Personnage#bouge(Case)
 	 * @param new_case la case cible
@@ -64,7 +64,7 @@ public class Pirate extends Personnage {
 			arrayMoussaillon.get(i).meurs();
 		}
 		
-		if(nb_moussaillon_elimine==Systeme.getSystem().getNb_moussaillon()){ //Vérification de la condition de victoire du pirate
+		if(nb_moussaillon_elimine==Systeme.getSystem().getNb_moussaillon()){ //Vï¿½rification de la condition de victoire du pirate
 			Systeme.getSystem().gagne();
 		}
 		
