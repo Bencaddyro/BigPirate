@@ -81,6 +81,7 @@ public class Fantome extends Personnage {
 	// ------------------------------------------------------------------------------------------------------------------
 	public void zoneDeplacement() {
 		this.setNb_deplacement_fantome(de.lancerDe());
+		delance=true;
 		this.initZoneDeplacement();
 
 		// Coordonnée du fantôme sur la carte
@@ -293,6 +294,7 @@ public class Fantome extends Personnage {
 			moussaillon.bouh();
 		}
 		if(this.getNb_deplacement_fantome() > 0) this.majZoneDeDeplacement();
+		nbDeplacementRestant=0;
 	}
 	
 
@@ -329,6 +331,7 @@ public class Fantome extends Personnage {
 			this.zone_de_deplacement[pos_x][pos_y] = null;
 			this.setPosition_dans_la_zone_x(pos_x + random_x);
 			this.setPosition_dans_la_zone_y(pos_y + random_y);
+		nbDeplacementRestant=0;
 	}
 
 }
