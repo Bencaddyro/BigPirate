@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 
 
 public class VueMenuPrincipal extends JPanel implements Observer {
+
+	private static final long serialVersionUID = 1L;
 	private JButton lancerPartie=new JButton("Lancez la partie !");
 	private JTextField nb_joueurs=new JTextField("2");
 	private JLabel label_nb_joueurs=new JLabel("Nombre de joueurs");

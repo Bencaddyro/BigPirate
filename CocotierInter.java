@@ -5,7 +5,7 @@ public class CocotierInter extends Case {
 	
 	CocotierInter(Integer _x, Integer _y) {
 		super(_x, _y);
-		path="src/img/cocotierinter.png";
+		path="img/cocotierinter.png";
 	}
 	public void setExtCoco(Case extCoco) {
 		this.extCoco = extCoco;

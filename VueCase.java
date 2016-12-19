@@ -1,6 +1,5 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Observable;
@@ -11,6 +10,7 @@ import javax.swing.JPanel;
 
 public class VueCase extends JPanel implements Observer{
 
+	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
     private Case c;
 
@@ -18,7 +18,7 @@ public class VueCase extends JPanel implements Observer{
 		super();
 		this.c=c;
 		try {
-            image = ImageIO.read(new File(c.getPath()));
+            image = ImageIO.read(getClass().getResource(c.getPath()));
 
         } catch (IOException ioe) {
             System.out.println("Impossible d'ouvrir l'image");
@@ -33,7 +33,7 @@ public class VueCase extends JPanel implements Observer{
         if(!c.getInventaire().isEmpty()){
         	BufferedImage imageTresor=null;
         		try {
-        			imageTresor = ImageIO.read(new File(c.getInventaire().iterator().next().getPath()));
+        			imageTresor = ImageIO.read(getClass().getResource(c.getInventaire().iterator().next().getPath()));
         		} catch (IOException ioe) {
         			System.out.println("Impossible d'ouvrir l'image");
 	            }
@@ -45,7 +45,7 @@ public class VueCase extends JPanel implements Observer{
         	Iterator<Personnage> it=c.getEquipage().iterator();
         	for(int i=0;i<c.getEquipage().size();i++){        	
 	    		try {
-	                imageEquipage = ImageIO.read(new File(it.next().getPath()));
+	                imageEquipage = ImageIO.read(getClass().getResource(it.next().getPath()));
 	            } catch (IOException ioe) {
 	            	System.out.println("Impossible d'ouvrir l'image");
 	            }

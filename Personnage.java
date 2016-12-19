@@ -63,6 +63,7 @@ public abstract class Personnage extends Observable {
 			o.update(this,this);
 		}
 	}
+	
 	public void registerObserver(Observer obs){
 		observers.add(obs);
 	}

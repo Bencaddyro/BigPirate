@@ -22,8 +22,8 @@ public class Moussaillon extends Personnage {
 		for(int i=0;i<tab[1][nbMoussaillon-1];i++){
 			this.collectionPerroquet.add(new Perroquet());
 		}
-		path="src/img/moussaillon.png";
-		de=new Des3();
+		path="img/moussaillon.png";
+		de=new De3();
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------

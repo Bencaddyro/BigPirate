@@ -1,13 +1,13 @@
 
 public class Tresor {
 
-	private String path = "src/img/tresor.png";
+	private String path = "img/tresor.png";
 	
 	/**
 	 * Renvoi le trésor a la Grotte
 	 */
 	public void retourGrotte(){
-		Systeme.getSystem().getGrille()[4][8].addTresor(this);
+		Systeme.getGrille()[4][8].addTresor(this);
 	}
 
 	public String getPath() {
@@ -23,7 +23,7 @@ public class Tresor {
 		do{//recherche d'une destination valide
 			i=(int)(Math.random()*12);
 			j=(int)(Math.random()*12);
-			cible=Systeme.getSystem().getGrille()[i][j];
+			cible=Systeme.getGrille()[i][j];
 		}while(!(cible instanceof Chemin));
 		
 		cible.addTresor(this);
