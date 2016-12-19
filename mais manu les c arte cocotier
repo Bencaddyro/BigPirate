@@ -1,0 +1,13 @@
+Bilan moussaillon
+
+Globalements toutes les fonctionnalités ont été implémentés avec succès.
+On pourrais améliorer le code existant en finissant la gestion dynamique des boutons de l'interface du moussaillon : ne proposer que les options disponibles (utilisation de carte cocotier etc..)
+On pourrait imaginer de nouveaux atout (carte Banane pour poser des pièges au pirate).
+On pourrait également introduire un systeme de point de vie pour les moussaillons
+Nous pourrions ajouter d'autre fonctionalités aux jeux,
+avec l'apparition d'atout aléatoirement sur l'ile, il faudrat
+pour cela introduire une classe "Item" comprenant les carte perroquet,
+cocotier, ainsi que trésor. Ainsi Les case pouraient contenir ces Item
+et les moussaillons pourraient les ramasser.
+
+On pourrait également ajouter de nouvelles carte avec une disposition différente avec un choix en début de partie. On pourrait également envisager d'augmenter le nombre de joueur
