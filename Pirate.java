@@ -9,8 +9,8 @@ public class Pirate extends Personnage {
 	private int nb_moussaillon_elimine=0;
 	
 	public Pirate(){
-		path="src/img/pirate.png";
-		de=new Des6();
+		path="img/pirate.png";
+		de=new De6();
 	}
 
 	/**

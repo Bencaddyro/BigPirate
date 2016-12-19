@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 
 public class Carte extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
 	private int n=12;
 	
 	

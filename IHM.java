@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class IHM extends JFrame{
+
+	private static final long serialVersionUID = 1L;
+
 	static int n=12;
 	
 	private JPanel menu=new JPanel(new CardLayout());

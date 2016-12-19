@@ -5,8 +5,8 @@ public class Fantome extends Personnage {
 	private int position_dans_la_zone_y;
 
 	public Fantome() {
-		de = new Des3();
-		path = "src/img/fantome.png";
+		de = new De3();
+		path = "img/fantome.png";
 		zone_de_deplacement = new Case[7][7];
 	}
 
@@ -118,17 +118,18 @@ public class Fantome extends Personnage {
 	 * @param pos_y
 	 */
 	public void deplacementScore1(int x, int y, int pos_x, int pos_y) {
-		if (pos_x - 1 >= 0)
-			this.zone_de_deplacement[x - 1][y] = Systeme.getSystem()
+		if (pos_x - 1 >= 0) {
+			this.zone_de_deplacement[x - 1][y] = Systeme
 					.getGrille()[pos_x - 1][pos_y];
+		}
 		if (pos_x + 1 <= 11)
-			this.zone_de_deplacement[x + 1][y] = Systeme.getSystem()
+			this.zone_de_deplacement[x + 1][y] = Systeme
 					.getGrille()[pos_x + 1][pos_y];
 		if (pos_y + 1 <= 11)
-			this.zone_de_deplacement[x][y + 1] = Systeme.getSystem()
+			this.zone_de_deplacement[x][y + 1] = Systeme
 					.getGrille()[pos_x][pos_y + 1];
 		if (pos_y - 1 >= 0)
-			this.zone_de_deplacement[x][y - 1] = Systeme.getSystem()
+			this.zone_de_deplacement[x][y - 1] = Systeme
 					.getGrille()[pos_x][pos_y - 1];
 	}
 
@@ -140,32 +141,32 @@ public class Fantome extends Personnage {
 	 * @param pos_y
 	 */
 	public void deplacementScore2(int x, int y, int pos_x, int pos_y) {
-		if (pos_x - 2 >= 0)	this.zone_de_deplacement[x - 2][y] = Systeme.getSystem().getGrille()[pos_x - 2][pos_y];
-		if (pos_x + 2 <= 11) this.zone_de_deplacement[x + 2][y] = Systeme.getSystem().getGrille()[pos_x + 2][pos_y];
+		if (pos_x - 2 >= 0)	this.zone_de_deplacement[x - 2][y] = Systeme.getGrille()[pos_x - 2][pos_y];
+		if (pos_x + 2 <= 11) this.zone_de_deplacement[x + 2][y] = Systeme.getGrille()[pos_x + 2][pos_y];
 
 		if (pos_x - 1 >= 0) {
 			if (pos_y + 1 <= 11)
-				this.zone_de_deplacement[x - 1][y + 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x - 1][y + 1] = Systeme
 						.getGrille()[pos_x - 1][pos_y + 1];
 			if (pos_y - 1 >= 0)
-				this.zone_de_deplacement[x - 1][y - 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x - 1][y - 1] = Systeme
 						.getGrille()[pos_x - 1][pos_y - 1];
 		}
 
 		if (pos_x + 1 <= 11) {
 			if (pos_y + 1 <= 11)
-				this.zone_de_deplacement[x + 1][y + 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x + 1][y + 1] = Systeme
 						.getGrille()[pos_x + 1][pos_y + 1];
 			if (pos_y - 1 >= 0)
-				this.zone_de_deplacement[x + 1][y - 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x + 1][y - 1] = Systeme
 						.getGrille()[pos_x + 1][pos_y - 1];
 		}
 
 		if (pos_y - 2 >= 0)
-			this.zone_de_deplacement[x][y - 2] = Systeme.getSystem()
+			this.zone_de_deplacement[x][y - 2] = Systeme
 					.getGrille()[pos_x][pos_y - 2];
 		if (pos_y + 2 <= 11)
-			this.zone_de_deplacement[x][y + 2] = Systeme.getSystem()
+			this.zone_de_deplacement[x][y + 2] = Systeme
 					.getGrille()[pos_x][pos_y + 2];
 	}
 
@@ -178,53 +179,53 @@ public class Fantome extends Personnage {
 	 */
 	public void deplacementScore3(int x, int y, int pos_x, int pos_y) {
 		if (pos_x - 3 >= 0)
-			this.zone_de_deplacement[x - 3][y] = Systeme.getSystem()
+			this.zone_de_deplacement[x - 3][y] = Systeme
 					.getGrille()[pos_x - 3][pos_y];
 		if (pos_x + 3 <= 11)
-			this.zone_de_deplacement[x + 3][y] = Systeme.getSystem()
+			this.zone_de_deplacement[x + 3][y] = Systeme
 					.getGrille()[pos_x + 3][pos_y];
 
 		if (pos_x - 2 >= 0) {
 			if (pos_y + 1 <= 11)
-				this.zone_de_deplacement[x - 2][y + 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x - 2][y + 1] = Systeme
 						.getGrille()[pos_x - 2][pos_y + 1];
 			if (pos_y - 1 >= 0)
-				this.zone_de_deplacement[x - 2][y - 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x - 2][y - 1] = Systeme
 						.getGrille()[pos_x - 2][pos_y - 1];
 		}
 
 		if (pos_x + 2 <= 11) {
 			if (pos_y + 1 <= 11)
-				this.zone_de_deplacement[x + 2][y + 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x + 2][y + 1] = Systeme
 						.getGrille()[pos_x + 2][pos_y + 1];
 			if (pos_y - 1 >= 0)
-				this.zone_de_deplacement[x + 2][y - 1] = Systeme.getSystem()
+				this.zone_de_deplacement[x + 2][y - 1] = Systeme
 						.getGrille()[pos_x + 2][pos_y - 1];
 		}
 
 		if (pos_x - 1 >= 0) {
 			if (pos_y + 2 <= 11)
-				this.zone_de_deplacement[x - 1][y + 2] = Systeme.getSystem()
+				this.zone_de_deplacement[x - 1][y + 2] = Systeme
 						.getGrille()[pos_x - 1][pos_y + 2];
 			if (pos_y - 2 >= 0)
-				this.zone_de_deplacement[x - 1][y - 2] = Systeme.getSystem()
+				this.zone_de_deplacement[x - 1][y - 2] = Systeme
 						.getGrille()[pos_x - 1][pos_y - 2];
 		}
 
 		if (pos_x + 1 <= 11) {
 			if (pos_y + 2 <= 11)
-				this.zone_de_deplacement[x + 1][y + 2] = Systeme.getSystem()
+				this.zone_de_deplacement[x + 1][y + 2] = Systeme
 						.getGrille()[pos_x + 1][pos_y + 2];
 			if (pos_y - 2 >= 0)
-				this.zone_de_deplacement[x + 1][y - 2] = Systeme.getSystem()
+				this.zone_de_deplacement[x + 1][y - 2] = Systeme
 						.getGrille()[pos_x + 1][pos_y - 2];
 		}
 
 		if (pos_y + 3 <= 11)
-			this.zone_de_deplacement[x][y + 3] = Systeme.getSystem()
+			this.zone_de_deplacement[x][y + 3] = Systeme
 					.getGrille()[pos_x][pos_y + 3];
 		if (pos_y - 3 >= 0)
-			this.zone_de_deplacement[x][y - 3] = Systeme.getSystem()
+			this.zone_de_deplacement[x][y - 3] = Systeme
 					.getGrille()[pos_x][pos_y - 3];
 	}
 

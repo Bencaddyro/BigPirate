@@ -10,13 +10,14 @@ import javax.swing.JLabel;
 
 public class VueMoussaillon extends VueJoueur {
 
-	
-	private JButton eCocotier=new JButton(new ImageIcon("src/img/in.png"));
+	private static final long serialVersionUID = 1L;
+
+	private JButton eCocotier=new JButton(new ImageIcon(getClass().getResource("img/in.png")));
 	
 	private JButton cCocotier=new JButton("Cocotier");
 	private JLabel nbCocotier=new JLabel("");
 	
-	private JButton cPerroquet=new JButton(new ImageIcon("src/img/perroquet1.png"));
+	private JButton cPerroquet=new JButton(new ImageIcon(getClass().getResource("img/perroquet1.png")));
 	private JLabel nbPerroquet = new JLabel("");
 	
 	private JButton lTresor=new JButton("Lacher");
@@ -142,9 +143,9 @@ public class VueMoussaillon extends VueJoueur {
 		}		
 		
 		if(((Moussaillon)arg0).getPerroquet()){
-			cPerroquet.setIcon(new ImageIcon("src/img/perroquet2.png"));
+			cPerroquet.setIcon(new ImageIcon(getClass().getResource("img/perroquet2.png")));
 		}else{
-			cPerroquet.setIcon(new ImageIcon("src/img/perroquet1.png"));
+			cPerroquet.setIcon(new ImageIcon(getClass().getResource("img/perroquet1.png")));
 		}
 		
 		if(((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
@@ -154,10 +155,10 @@ public class VueMoussaillon extends VueJoueur {
 
 		
 		if(((Moussaillon)arg0).getMyTresor()==null){
-			inventaire.setIcon(new ImageIcon("src/img/coffrecross.png"));
+			inventaire.setIcon(new ImageIcon(getClass().getResource("img/coffrecross.png")));
 			this.remove(lTresor);
 		}else{
-			inventaire.setIcon(new ImageIcon("src/img/coffrecheck.png"));
+			inventaire.setIcon(new ImageIcon(getClass().getResource("img/coffrecheck.png")));
 			c.gridx=0;
 			c.gridy=7;
 			c.gridwidth = 1;

@@ -9,10 +9,11 @@ import javax.swing.JPanel;
 
 public class CroixDirection extends JPanel {
 	
-	private JButton haut=new JButton(new ImageIcon("src/img/up-arrow.png"));
-	private JButton bas=new JButton(new ImageIcon("src/img/bottom-arrow.png"));
-	private JButton droite=new JButton(new ImageIcon("src/img/right-arrow.png"));
-	private JButton gauche=new JButton(new ImageIcon("src/img/left-arrow.png"));
+	private static final long serialVersionUID = 1L;
+	private JButton haut=new JButton(new ImageIcon(getClass().getResource("img/up-arrow.png")));
+	private JButton bas=new JButton(new ImageIcon(getClass().getResource("img/bottom-arrow.png")));
+	private JButton droite=new JButton(new ImageIcon(getClass().getResource("img/right-arrow.png")));
+	private JButton gauche=new JButton(new ImageIcon(getClass().getResource("img/left-arrow.png")));
 	
 	public CroixDirection(){
 		super(new GridBagLayout());		

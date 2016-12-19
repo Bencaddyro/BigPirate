@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 
 public class LancementDe extends JPanel implements Observer{
 	
-	private JButton lancerDe=new JButton(new ImageIcon("src/img/dice.png"));
+	private static final long serialVersionUID = 1L;
+	private JButton lancerDe=new JButton(new ImageIcon(getClass().getResource("img/dice.png")));
 	private JLabel resultDe=new JLabel("En attente du résultat");
 	private JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
 	
