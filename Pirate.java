@@ -1,9 +1,6 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
 
 
 public class Pirate extends Personnage {
@@ -12,8 +9,8 @@ public class Pirate extends Personnage {
 	private int nb_moussaillon_elimine=0;
 	
 	public Pirate(){
-		path="src/pirate.png";
-		this.de=new Des6();
+		path="src/img/pirate.png";
+		de=new Des6();
 	}
 
 	/**
@@ -64,10 +61,6 @@ public class Pirate extends Personnage {
 			arrayMoussaillon.get(i).meurs();
 		}
 		
-		if(nb_moussaillon_elimine==Systeme.getSystem().getNb_moussaillon()){ //V�rification de la condition de victoire du pirate
-			Systeme.getSystem().gagne();
-		}
-		
 		Iterator<Tresor> itTresor = getPosition().getInventaire().iterator();
 		for(int i=0;i<this.getPosition().getInventaire().size();i++){
 			Tresor tresorSurLaCase=itTresor.next();
@@ -79,8 +72,10 @@ public class Pirate extends Personnage {
 			getPosition().inventaire.remove(tresorCourant);
 			tresorCourant.retourGrotte();
 		}
-	
-		if(nbDeplacementRestant==0){
+		if(nb_moussaillon_elimine==Systeme.getSystem().getNb_moussaillon()){ 
+			//Vérification de la condition de victoire du pirate
+			Systeme.getSystem().gagne();
+		}else if(nbDeplacementRestant==0){
 			Systeme.getSystem().finDeTour();
 		}
 		notifyObservers();

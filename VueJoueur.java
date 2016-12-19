@@ -1,20 +1,15 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
 public abstract class VueJoueur extends JPanel implements Observer{
 
 	
-	CroixDirection croix = new CroixDirection();
-	LancementDe lancement = new LancementDe();
+	private CroixDirection croix = new CroixDirection();
+	private LancementDe lancement = new LancementDe();
 	
 	public VueJoueur(Personnage p) {
 		this.setLayout(new GridBagLayout());

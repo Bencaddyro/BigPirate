@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,10 +11,10 @@ import javax.swing.JTextField;
 
 
 public class VueMenuPrincipal extends JPanel implements Observer {
-	JButton lancerPartie=new JButton("Lancez la partie !");
-	JTextField nb_joueurs=new JTextField("2");
-	JLabel label_nb_joueurs=new JLabel("Nombre de joueurs");
-	JLabel victoire=new JLabel();
+	private JButton lancerPartie=new JButton("Lancez la partie !");
+	private JTextField nb_joueurs=new JTextField("2");
+	private JLabel label_nb_joueurs=new JLabel("Nombre de joueurs");
+	private JLabel victoire=new JLabel();
 
 	public VueMenuPrincipal(){
 		this.setLayout(new GridBagLayout());

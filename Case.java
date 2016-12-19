@@ -4,10 +4,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
-import javax.swing.JPanel;
-
-
-
 public abstract class Case extends Observable {
 
 	protected String path;
@@ -15,7 +11,7 @@ public abstract class Case extends Observable {
 	protected Integer y;
 	protected AbstractCollection<Tresor> inventaire;
 	protected AbstractCollection<Personnage> equipage;
-	Set<Observer> observers = new HashSet<Observer>();
+	private Set<Observer> observers = new HashSet<Observer>();
 	
 	Case(Integer _x, Integer _y){
 		x=_x;
@@ -23,6 +19,11 @@ public abstract class Case extends Observable {
 		inventaire=new HashSet<Tresor>();
 		equipage=new HashSet<Personnage>();
 	}
+	
+
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//GETTER and SETTER
+	//----------------------------------------------------------------------------------------------------------------------------------------
 	public String getPath(){
 		return path;
 	}
@@ -38,7 +39,6 @@ public abstract class Case extends Observable {
 	public AbstractCollection<Tresor> getInventaire() {
 		return inventaire;
 	}
-	
 	public Boolean estValide(){
 		return false;
 	}
@@ -50,14 +50,6 @@ public abstract class Case extends Observable {
 	}
 	public Boolean barque(){
 		return false;
-	}
-	public Tresor tresorPresent(){
-		if(inventaire.isEmpty()){
-			return null;
-		}
-		else{
-			return inventaire.iterator().next();
-		}
 	}
 	public Personnage personnagePresent(){
 		if(equipage.isEmpty()){
@@ -87,7 +79,7 @@ public abstract class Case extends Observable {
 		Personnage perso = this.personnagePresent();
 		if (perso != null)
 		{
-			if (perso.getClass() == Moussaillon.class)
+			if (perso instanceof Moussaillon)
 			{
 				return (Moussaillon) perso;
 			}

@@ -12,12 +12,10 @@ public class Systeme extends Observable
 	private static int nb_perso;
 	private static int suivant; //indique à qui est le tour de jeu
 	private IHM ihm;
-	private static Systeme instance=null;
-	private String victoire;
-	Set<Observer> observers = new HashSet<Observer>();
 	
-
-//coordoner de la map en bas a gauche case 0,0	
+	private static Systeme instance=null;
+	private String victoire;//message de victoire
+	private Set<Observer> observers = new HashSet<Observer>();
 	
 	public static Systeme getSystem(){
 		if(instance==null){
@@ -26,8 +24,7 @@ public class Systeme extends Observable
 		return instance;
 	}
 	
-	private Systeme()
-	{
+	private Systeme(){
 		this.initGrille();	
 	}
 	
@@ -40,17 +37,20 @@ public class Systeme extends Observable
 		observers.add(obs);
 	}
 	
+	/**
+	 * Cette methode initialise les paramètre du systeme en fonction du nombre de personnage
+	 * @param nbperso
+	 */
 	public static void start(int nbperso){
 		nb_moussaillon= nbperso - 2 ;
 		nb_perso=nbperso;
-		suivant = 2; //indique à qui est le tour de jeu
+		suivant = 2; //le jeu démarre par le tour du premier moussaillon
 		
 		collection_personnage = new Personnage[nb_perso];
 		collection_personnage[0]=new Pirate();
 		collection_personnage[1]=new Fantome();
 		
-		for(int i = 0; i < nb_moussaillon; i++)
-		{
+		for(int i = 0; i < nb_moussaillon; i++){
 			collection_personnage[2+i] = new Moussaillon(nb_moussaillon);
 		}
 		
@@ -63,42 +63,38 @@ public class Systeme extends Observable
 	//----------------------------------------------------------------------------------------------------------------------------------------
 	//GETTER and SETTER
 	//----------------------------------------------------------------------------------------------------------------------------------------
-	public static Case[][] getGrille() {
+	public static Case[][] getGrille(){
 		return grille;
 	}
-	public void setGrille(Case[][] grille) {
-		this.grille = grille;
-	}
 	
-	public Personnage[] getCollection_personnage() {
+	public Personnage[] getCollection_personnage(){
 		return collection_personnage;
 	}
-	public void setCollection_personnage(Personnage[] collection_personnage) {
-		this.collection_personnage = collection_personnage;
+	
+	public Personnage getPersonnageCourant(){
+		return collection_personnage[suivant];
 	}
 	
-	public Personnage getPersonnageCourant()
-	{
-		return collection_personnage[this.suivant];
-	}
-	
-	public int getNb_moussaillon() {
+	public int getNb_moussaillon(){
 		return nb_moussaillon;
 	}
-	public void setNb_moussaillon(int nb_moussaillon) {
-		this.nb_moussaillon = nb_moussaillon;
+	
+	public IHM getIhm() {
+		return ihm;
 	}
 	
-	public int getNb_perso() {
-		return nb_perso;
+	public String getVictoire() {
+		return victoire;
 	}
-	public void setNb_perso(int nb_perso) {
-		this.nb_perso = nb_perso;
+
+	public void setVicoire(String string) {
+		victoire=string;
+		notifyObservers();
 	}
+	
 	
 	// Initialisation de la grille
-	public void initGrille()
-	{
+	public void initGrille(){
 		grille = new Case[12][12];
 		for(int i=0;i<12;i++){
 			for(int j=0;j<12;j++){
@@ -163,11 +159,13 @@ public class Systeme extends Observable
 	//Mise en place des personnages
 	public static void miseEnPlace()
 	{
+		//on efface les traces d'une potentiel partie
 		for(int i=0;i<12;i++){
 			for(int j=0;j<12;j++){
 				grille[i][j].reset();
 			}
 		}
+		
 		//Mise en place du pirate  
 		grille[4][8].addPersonnage(collection_personnage[0]);
 		collection_personnage[0].setPosition(grille[4][8]);
@@ -200,18 +198,17 @@ public class Systeme extends Observable
 	
 	
 	
-	//Rappel: Chacun des moussaillon joue son tour, puis le pirate, puis le fantôme.
-	//Le Personnage passé en paramètre (perso) est le personnage qui vient de réaliser son tour de jeu
-	//public Personnage suivant()
+	/**
+	 * Cette methode est appelee quand un personnage a fini son tour, il permet de donner la main au joueur suivant
+	 */
 	public void finDeTour()
 	{
 		if(collection_personnage[suivant].nbDeplacementRestant==0 && collection_personnage[suivant].delance){
 
 			do{
-				this.suivant=((this.suivant+1)%nb_perso);
+				suivant=((suivant+1)%nb_perso);
 			}while(!collection_personnage[suivant].isVivant());		
-			
-			
+	
 			if(suivant==0){
 				ihm.printVue("Menu Pirate");
 			}
@@ -227,23 +224,24 @@ public class Systeme extends Observable
 			if(suivant==4){
 				ihm.printVue("Menu Moussaillon 3");
 			}
-			collection_personnage[this.suivant].aToiDeJouer();
+			collection_personnage[suivant].aToiDeJouer();
 		}
 	}
 	
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------
-	//Deplacement
-	//----------------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Cette methode est appelee par l'IHM pour déplacer un joueur, on traduit les direction en mouvement relatif
+	 * @param direction
+	 */
 	public void deplacement(String direction)
 	{
+		//si il rest des déplacement disponible au personnage
 		if (getPersonnageCourant().getNbDeplacementRestant() !=0){
+			
 			// Case indiquant la position du personnage
 			Case position = getPersonnageCourant().getPosition();
 			int pos_x = position.getX();
 			int pos_y = position.getY();
 			// Case que l'on localise grace à la direction indiquée 
-			//(Initialisation à position pour ne pas avoir de pb dans la vérification de la validitée de la case)
 			Case new_case = position ; 
 			if (direction == "haut"){
 				new_case = Systeme.getGrille()[pos_x][(pos_y+1)%12];
@@ -258,32 +256,17 @@ public class Systeme extends Observable
 				new_case = Systeme.getGrille()[(pos_x+1)%12][pos_y];
 			}		
 			//vérifier pour pirate et moussailllon que ce déplacement est courant dans le mouvement
-			if(new_case.estValide())
-			{
-				if(getPersonnageCourant().getClass()==Moussaillon.class || getPersonnageCourant().getClass()==Pirate.class){
-					if(getPersonnageCourant().estValide(new_case)){
-						getPersonnageCourant().bouge(new_case);
-					}
-				}
-				else{
+			if(new_case.estValide()){
+				if(getPersonnageCourant().estValide(new_case)){
 					getPersonnageCourant().bouge(new_case);
 				}
 			}
 		}
 	}
 	
-	
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------
-	//Main (TEST)
-	//----------------------------------------------------------------------------------------------------------------------------------------
-	public static void main(String[] args)
-	{
-		Systeme systeme = Systeme.getSystem();
-		Systeme.start(3);
-		systeme.ihm=new IHM();
-	}
-
+	/**
+	 * methode appelee quand un personnage gagne
+	 */
 	public void gagne(){
 		if(collection_personnage[suivant] instanceof Moussaillon){
 			victoire="Bravo Moussaillon "+(suivant-1)+", tu a vaincu le Pirate !";
@@ -295,22 +278,20 @@ public class Systeme extends Observable
 		ihm.printVue("Menu Principal");
 	}
 
+	/**
+	 * Cette methode démarre la partie
+	 */
 	public void debut() {
 		ihm.printVue("Menu Moussaillon 1");
 		collection_personnage[suivant].aToiDeJouer();
-		
 	}
 
-	public IHM getIhm() {
-		return ihm;
-	}
-
-	public String getVictoire() {
-		return victoire;
-	}
-
-	public void setVicoire(String string) {
-		victoire=string;
-		notifyObservers();
+	
+	public static void main(String[] args)
+	{
+		Systeme systeme = Systeme.getSystem();
+		Systeme.start(3);
+		systeme.ihm=new IHM();
 	}
 }
+	
