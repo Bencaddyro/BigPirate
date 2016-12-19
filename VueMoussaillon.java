@@ -1,32 +1,28 @@
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 
 public class VueMoussaillon extends VueJoueur {
 
 	
-	JButton eCocotier=new JButton(new ImageIcon("src/in.png"));
+	private JButton eCocotier=new JButton(new ImageIcon("src/img/in.png"));
 	
-	JButton cCocotier=new JButton("Cocotier");
-	JLabel nbCocotier=new JLabel("");
+	private JButton cCocotier=new JButton("Cocotier");
+	private JLabel nbCocotier=new JLabel("");
 	
-	JButton cPerroquet=new JButton(new ImageIcon("src/perroquet1.png"));
-	JLabel nbPerroquet = new JLabel("");
+	private JButton cPerroquet=new JButton(new ImageIcon("src/img/perroquet1.png"));
+	private JLabel nbPerroquet = new JLabel("");
 	
-	JButton lTresor=new JButton("Lacher");
-	JLabel inventaire = new JLabel("");
+	private JButton lTresor=new JButton("Lacher");
+	private JLabel inventaire = new JLabel("");
 	
-	JButton finDuTour=new JButton("Fin ");
+	private JButton finDuTour=new JButton("Fin ");
 	
 	public VueMoussaillon(Personnage m){
 		super(m);		
@@ -76,6 +72,7 @@ public class VueMoussaillon extends VueJoueur {
 		eCocotier.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
+	    				//action de se cacher dans un cocotier
 	    				((Moussaillon) Systeme.getSystem().getPersonnageCourant()).entrerCocotier();
 	    			}
 	    		}		
@@ -84,6 +81,7 @@ public class VueMoussaillon extends VueJoueur {
 		cCocotier.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
+	    				//action d'utiliser une carte cocotier
 	    				((Moussaillon) Systeme.getSystem().getPersonnageCourant()).carteCocotier();
 	    			}
 	    		}		
@@ -92,6 +90,7 @@ public class VueMoussaillon extends VueJoueur {
 		cPerroquet.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
+	    				//action d'utiliser une carte perroquet
 	    				((Moussaillon) Systeme.getSystem().getPersonnageCourant()).cartePerroquet();
 	    			}
 	    		}		
@@ -99,6 +98,7 @@ public class VueMoussaillon extends VueJoueur {
 		
 		lTresor.addActionListener(
 	    		new ActionListener(){
+	    			//action de lacher le trésor
 	    			public void actionPerformed(ActionEvent e){
 	    				((Moussaillon) Systeme.getSystem().getPersonnageCourant()).lacherTresor();
 	    			}
@@ -108,6 +108,7 @@ public class VueMoussaillon extends VueJoueur {
 		finDuTour.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
+	    				//action de passer son tour
 	    				Systeme.getSystem().finDeTour();
 	    			}
 	    		}		
@@ -118,10 +119,12 @@ public class VueMoussaillon extends VueJoueur {
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		
+		//on met a jour le nombre de carte cocotier et de carte perroquet
 		nbCocotier.setText(""+((Moussaillon)arg0).getCollectionCocotier().size());
 		nbPerroquet.setText(""+((Moussaillon)arg0).getCollectionPerroquet().size());
 		
+		
+		//l'option de rentrer dans un cocotier n'est disponible que si le moussaillon est sur une case cocotier exterieur
 		if(!((Moussaillon)arg0).getPosition().cocotierExt()){
 			this.remove(eCocotier);
 		}else{
@@ -132,16 +135,18 @@ public class VueMoussaillon extends VueJoueur {
 			this.add(eCocotier,c);
 		}
 		
-
+		
 		if(((Moussaillon)arg0).getCollectionCocotier().isEmpty()){
 			this.remove(cCocotier);
+			this.remove(nbCocotier);
 		}		
 		
 		if(((Moussaillon)arg0).getPerroquet()){
-			cPerroquet.setIcon(new ImageIcon("src/perroquet2.png"));
+			cPerroquet.setIcon(new ImageIcon("src/img/perroquet2.png"));
 		}else{
-			cPerroquet.setIcon(new ImageIcon("src/perroquet1.png"));
+			cPerroquet.setIcon(new ImageIcon("src/img/perroquet1.png"));
 		}
+		
 		if(((Moussaillon)arg0).getCollectionPerroquet().isEmpty()){
 			this.remove(cPerroquet);
 			this.remove(nbPerroquet);			
@@ -149,10 +154,10 @@ public class VueMoussaillon extends VueJoueur {
 
 		
 		if(((Moussaillon)arg0).getMyTresor()==null){
-			inventaire.setIcon(new ImageIcon("src/coffrecross.png"));
+			inventaire.setIcon(new ImageIcon("src/img/coffrecross.png"));
 			this.remove(lTresor);
 		}else{
-			inventaire.setIcon(new ImageIcon("src/coffrecheck.png"));
+			inventaire.setIcon(new ImageIcon("src/img/coffrecheck.png"));
 			c.gridx=0;
 			c.gridy=7;
 			c.gridwidth = 1;

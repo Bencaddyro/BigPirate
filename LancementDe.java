@@ -1,11 +1,9 @@
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,9 +12,9 @@ import javax.swing.JPanel;
 
 public class LancementDe extends JPanel implements Observer{
 	
-	JButton lancerDe=new JButton(new ImageIcon("src/dice.png"));
-	JLabel resultDe=new JLabel("En attente du résultat");
-	JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
+	private JButton lancerDe=new JButton(new ImageIcon("src/img/dice.png"));
+	private JLabel resultDe=new JLabel("En attente du résultat");
+	private JLabel nbDeplacementRestant=new JLabel("? déplacements restants");
 	
 	public LancementDe() {
 		super(new GridBagLayout());
@@ -46,17 +44,19 @@ public class LancementDe extends JPanel implements Observer{
 		lancerDe.addActionListener(
 	    		new ActionListener(){
 	    			public void actionPerformed(ActionEvent e){
-	    				//fonction de deplacement
+	    				//appel de la methode de lancement de dé
 	    				Systeme.getSystem().getPersonnageCourant().lancerDe();
 	    			}
 	    		}		
 	    	);
 	}
-		
+	
+	/**
+	 * Cette methode met a jour le résultat du dé ainsi que le nombre de déplacement restant
+	 */
 	public void update(Observable o, Object arg) {
 		resultDe.setText("Résultat du dé : "+((Personnage)o).getScore());
-		nbDeplacementRestant.setText("Move dispo : "+((Personnage)o).getNbDeplacementRestant());
-		
+		nbDeplacementRestant.setText("Déplacement possible : "+((Personnage)o).getNbDeplacementRestant());
 	}
 	
 }

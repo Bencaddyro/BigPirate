@@ -21,11 +21,12 @@ public class VueCase extends JPanel implements Observer{
             image = ImageIO.read(new File(c.getPath()));
 
         } catch (IOException ioe) {
-            System.out.println("Could not read in the pic");
-            //System.exit(0);
+            System.out.println("Impossible d'ouvrir l'image");
         }		
 	}
-	
+	/**
+	 * Surcharge de paintComponent, pour permettre la superposition des différentes images de personnage
+	 */
 	public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(image,0,0,this);
@@ -34,12 +35,11 @@ public class VueCase extends JPanel implements Observer{
         		try {
         			imageTresor = ImageIO.read(new File(c.getInventaire().iterator().next().getPath()));
         		} catch (IOException ioe) {
-	                System.out.println("Could not read in the pic");
+        			System.out.println("Impossible d'ouvrir l'image");
 	            }
         	g.drawImage(imageTresor,0,0,this);
         }
-        	
-		
+
         if(!c.getEquipage().isEmpty()){
         	BufferedImage imageEquipage=null;
         	Iterator<Personnage> it=c.getEquipage().iterator();
@@ -47,13 +47,16 @@ public class VueCase extends JPanel implements Observer{
 	    		try {
 	                imageEquipage = ImageIO.read(new File(it.next().getPath()));
 	            } catch (IOException ioe) {
-	                System.out.println("Could not read in the pic");
+	            	System.out.println("Impossible d'ouvrir l'image");
 	            }
 	    		g.drawImage(imageEquipage,0,0,this);
     		}
         }
     }
-
+	
+	/**
+	 * On signal un changement dans le Container et on le re-affiche
+	 */
 	public void update(Observable o, Object arg) {
 		this.repaint();
 	}
